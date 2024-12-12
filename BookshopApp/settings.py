@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,12 +9,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'KwvyyQYF_SY4ACn1zaCvILEJ9qpj1_RIT32-VU4SjiNtUsq50kEZ4BjdudJiBs2Wu30'
+SECRET_KEY = config('SECRET_KEY')
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -81,14 +82,14 @@ STATICFILES_FINDERS = [
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_PORT = 2525
-EMAIL_HOST_USER = '893747a81fe786'
-EMAIL_HOST_PASSWORD = '04a35305d16d78' 
-EMAIL_USE_TLS = False  # Set to False if MAIL_ENCRYPTION is null
-EMAIL_USE_SSL = False  # Ensure SSL is also disabled if encryption is null
-DEFAULT_FROM_EMAIL = 'hello@example.com'
+EMAIL_BACKEND =config('EMAIL_BACKEND')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')  # Set to False if MAIL_ENCRYPTION is null
+EMAIL_USE_SSL = config('EMAIL_USE_SSL')  # Ensure SSL is also disabled if encryption is null
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 
 
@@ -101,8 +102,7 @@ DEFAULT_FROM_EMAIL = 'hello@example.com'
 # EMAIL_HOST_PASSWORD = 'your_app_password'  # Replace with the App Password you created above
 # DEFAULT_FROM_EMAIL = 'your_email@gmail.com'  # This is optional but recommended
 
-OPENAI_API_KEY = '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'
-
+OPENAI_API_KEY = config('OPENAI_API_KEY')
 
 
 LOGIN_URL = 'login'
@@ -123,8 +123,8 @@ ROOT_URLCONF = 'BookshopApp.urls'
 
 
 # settings.py
-PAYSTACK_SECRET_KEY = 'sk_test_d3b4699e24730aef887b922c03ef7452bcd1cc00'
-PAYSTACK_PUBLIC_KEY = 'pk_test_eba39cc9c139c9b13b09298f7c0b7656f5517ee5'
+PAYSTACK_SECRET_KEY = config('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY = config('PAYSTACK_PUBLIC_KEY')
 
 
 # AUTH_USER_MODEL = 'user.CustomUser'  # Update according to your app structure
