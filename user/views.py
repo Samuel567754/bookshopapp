@@ -907,74 +907,6 @@ def contact_view(request):
     return render(request, 'partials/_contactsec.html', {'form': form})
 
 
-
-# def contact_view(request):
-#     if request.method == 'POST':
-#         form = ContactForm(request.POST)
-#         if form.is_valid():
-#             # Extract cleaned data from form
-#             name = form.cleaned_data.get('firstname')
-#             email = form.cleaned_data.get('email')
-#             message = form.cleaned_data.get('message')
-
-#             # Prepare the email content using the template
-#             email_content = render_to_string('user/emails/email_template.html', {
-#                 'name': name,
-#                 'email': email,
-#                 'message': message,
-#             })
-
-#             # Send email to admin
-#             email = EmailMessage(
-#                 subject=f"New Contact Message from {name}",
-#                 body=email_content,
-#                 from_email='hello@example.com',  # Replace with your email
-#                 to=['chill123@gmail.com'],  # Replace with actual admin email
-#             )
-#             email.content_subtype = 'html'  # Make sure to set this to send HTML emails
-#             email.send(fail_silently=False)
-
-#             # Send auto-response (optional)
-#             auto_response_content = render_to_string('user/emails/auto_response_template.html', {
-#                 'name': name,
-#                 'message': message,
-#             })
-#             auto_response_email = EmailMessage(
-#                 subject="Thank you for contacting us",
-#                 body=auto_response_content,
-#                 from_email='hello@example.com',
-#                 to=[email],
-#             )
-#             auto_response_email.content_subtype = 'html'
-#             auto_response_email.send(fail_silently=False)
-
-#             # Save form data if necessary
-#             form.save()
-
-#             # Send success message and updated form
-#             messages.success(request, 'Your message has been sent successfully.')
-#             response_data = {
-#                 'success': True,
-#                 'messages': ['Your message has been sent successfully.'],
-#                 'form_html': render_to_string('partials/_contactsec.html', {'form': ContactForm()})
-#             }
-#             return JsonResponse(response_data)
-#         else:
-#             # Collect and send back error messages
-#             for field, errors in form.errors.items():
-#                 for error in errors:
-#                     messages.error(request, error)
-#             response_data = {
-#                 'success': False,
-#                 'form_html': render_to_string('partials/_contactsec.html', {'form': form})
-#             }
-#             return JsonResponse(response_data)
-#     else:
-#         form = ContactForm()  # Handle GET requests
-
-#     return render(request, 'partials/_contactsec.html', {'form': form})
-
-
 def about_us(request):
     return render(request, 'user/aboutus.html')
 
@@ -1040,63 +972,6 @@ def shop(request):
 
 def user_notifications(request):
     return render(request, 'user/user_notifications.html')
-
-
-
-# def contact_support(request):
-#     if request.method == 'POST':
-#         form = ContactForm(request.POST)
-#         if form.is_valid():
-#             # Extract cleaned data from form
-#             name = form.cleaned_data.get('firstname')
-#             email = form.cleaned_data.get('email')
-#             message = form.cleaned_data.get('message')
-
-#             # Prepare the email content using the template
-#             email_content = render_to_string('user/emails/email_template.html', {
-#                 'name': name,
-#                 'email': email,
-#                 'message': message,
-#             })
-
-#             # Send email to admin
-#             email = EmailMessage(
-#                 subject=f"New Contact Message from {name}",
-#                 body=email_content,
-#                 from_email='hello@example.com',  # Replace with your email
-#                 to=['chill123@gmail.com'],  # Replace with actual admin email
-#             )
-#             email.content_subtype = 'html'  # Ensure HTML email
-#             email.send(fail_silently=False)
-
-#             # Send auto-response (optional)
-#             auto_response_content = render_to_string('user/emails/auto_response_template.html', {
-#                 'name': name,
-#                 'message': message,
-#             })
-#             auto_response_email = EmailMessage(
-#                 subject="Thank you for contacting us",
-#                 body=auto_response_content,
-#                 from_email='hello@example.com',
-#                 to=[email],
-#             )
-#             auto_response_email.content_subtype = 'html'
-#             auto_response_email.send(fail_silently=False)
-
-#             # Show success message
-#             messages.success(request, 'Your message has been sent successfully.')
-#             return redirect('profile')  # Redirect to the contact page or another page after submission
-
-#         else:
-#             # Collect and send back error messages
-#             for field, errors in form.errors.items():
-#                 for error in errors:
-#                     messages.error(request, error)
-
-#     else:
-#         form = ContactForm()  # Handle GET requests
-
-#     return render(request, 'partials/_contactform.html', {'form': form})
 
 
 
