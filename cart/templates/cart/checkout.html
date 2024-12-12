@@ -1,0 +1,202 @@
+{% extends 'base.html' %} 
+
+{% block title %}Checkout - My Website{% endblock %} 
+
+{% block content %}
+
+{% load static %}
+
+<div class="mt-10 h-64 flex justify-center items-center relative">
+    <div class="inset-0 bg-black opacity-60 absolute z-10"></div>
+    <div class="aos text-center relative z-20" data-aos="flip-left"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="2000">
+     <h2 class="mb-2 text-3xl lg:text-4xl text-white font-bold leading-tight">Checkout</h2>
+        <h2 class="mb-5 text-xl lg:text-2xl text-white font-bold leading-tight">Good Job, {{ user.username }}!</h2>
+        <p class="text-lg text-white mx-auto">Explore and pay with our secure payment gateways</p>
+    </div>
+    <div class="inset-0 absolute z-0">  
+    <img src="{% static 'images/shopbg/shopbg (98).jpg' %}" class="w-full h-full object-fill object-center">
+    </div> 
+</div>
+
+
+<div class="container mx-auto px-4 py-10">
+
+    <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Checkout Summary</h2>
+    
+        <div class="space-y-6">
+            {% for item in cart_items %}
+            <div class="flex items-center justify-between bg-gray-50 p-5 rounded-lg shadow-sm border border-gray-200 transition duration-300 transform hover:scale-105">
+                <div class="flex items-center space-x-4">
+                    <!-- Book Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <div>
+                        <span class="text-lg font-semibold text-gray-700">{{ item.book.title }}</span>
+                        <p class="text-sm text-gray-500">Quantity: <span class="font-medium text-gray-700">{{ item.quantity }}</span></p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-lg font-bold text-gray-800">GH₵{{ item.subtotal|floatformat:2 }}</span>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center text-gray-500 font-medium">
+                Your cart is empty.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+    <div
+      class="font-[sans-serif] lg:flex lg:items-center lg:justify-center lg:h-screen max-lg:py-4"
+    >
+      <div
+        class="bg-purple-100 p-8 w-full max-w-5xl max-lg:max-w-xl mx-auto rounded-md"
+      >
+        <h2 class="text-3xl font-extrabold text-gray-800 text-center">
+          Checkout
+        </h2>
+            <div class="grid lg:grid-cols-3 gap-6 max-lg:gap-8 mt-16">
+                <div class="lg:col-span-2">
+                    <h3 class="text-lg font-bold text-gray-800 mb-6">Choose your payment method</h3>
+                    
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-6">
+                            <input type="radio" name="payment_method" class="w-5 h-5 text-blue-600 focus:ring-0 cursor-pointer" id="paystack" checked>
+                            <label for="paystack" class="ml-4 flex items-center gap-3 cursor-pointer">
+                                <!-- Placeholder for Paystack Logo -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M13 2h-2v20h2V2zm8 2h-2v16h2V4zm-4 2h-2v12h2V6zm-8 2H7v8h2V8zm-4 2H3v4h2v-4z"></path>
+                                </svg>
+                                <span class="text-lg font-medium text-gray-700">Secure Payment with Paystack</span>
+                            </label>
+                        </div>
+            
+                        <!-- Info Message -->
+                        <p class="text-sm text-gray-500 mt-2">
+                            Enjoy fast and secure payments through Paystack, with full protection for your transactions.
+                        </p>
+                    </div>
+               
+            
+
+            <!-- Displaying user information -->
+            <form
+              action="{% url 'order:initiate_payment' %}"
+              method="post"
+              class="mt-8"
+            >
+              {% csrf_token %}
+              <div class="grid sm:col-span-2 sm:grid-cols-2 gap-4">
+                <div>
+                  <input
+                    type="text"
+                    value="{{ user_info.first_name }}"
+                    placeholder="First Name"
+                    class="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border rounded-md"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    value="{{ user_info.last_name }}"
+                    placeholder="Last Name"
+                    class="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border rounded-md"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    value="{{ user_info.email }}"
+                    placeholder="Email"
+                    class="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border rounded-md"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    value="{{ user_info.username }}"
+                    placeholder="Username"
+                    class="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border rounded-md"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-4 mt-8">
+                <!-- Pay Later Button -->
+                <button
+                  type="button"
+                  class="flex items-center gap-2 px-6 py-3 text-sm tracking-wide bg-gray-100 text-gray-700 rounded-md shadow hover:bg-gray-200 transition duration-200"
+                >
+                  <!-- Clock SVG Icon for "Pay Later" -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12zm.5-11H9v4.5l3.5 2.1.5-.8-3-1.8V5z"
+                    />
+                  </svg>
+                  <span>Pay Later</span>
+                </button>
+
+                <!-- Complete Payment Button -->
+                <button
+                  type="submit"
+                  class="flex items-center gap-2 px-6 py-3 text-sm tracking-wide bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 transition duration-200"
+                >
+                  <!-- Checkmark SVG Icon for "Complete Payment" -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span>Pay GH₵{{ total_price|floatformat:1 }}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="bg-white p-6 rounded-md max-lg:-order-1">
+            <h3 class="text-lg font-bold text-gray-800">Summary</h3>
+            <ul class="text-gray-800 mt-6 space-y-3">
+              <li class="flex flex-wrap gap-4 text-sm">
+                Sub total
+                <span class="ml-auto font-bold"
+                  >GH₵{{ total_price|floatformat:2 }}</span
+                >
+              </li>
+              <hr />
+              <li class="flex flex-wrap gap-4 text-base font-bold">
+                Total
+                <span class="ml-auto">GH₵{{ total_price|floatformat:2 }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

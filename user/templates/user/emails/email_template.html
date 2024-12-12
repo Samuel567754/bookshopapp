@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Notification</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="p-6">
+            <h1 class="text-2xl font-bold mb-4">New Contact Message</h1>
+            <p class="text-gray-700 mb-2"><strong>Name:</strong> {{ name }}</p>
+            <p class="text-gray-700 mb-4"><strong>Email:</strong> {{ email }}</p>
+            <p class="text-gray-700"><strong>Message:</strong></p>
+            <p class="mt-2">{{ message }}</p>
+            <div class="mt-6">
+                <p class="text-gray-600">Thank you for reaching out!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

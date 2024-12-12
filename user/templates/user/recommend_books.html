@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Recommendations - My bookshop{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+
+
+<div class="flex justify-center items-center h-screen">
+<div class="p-8 bg-gradient-to-br from-gray-100 max-w-2xl to-blue-50 rounded-xl shadow-lg">
+    <!-- Heading -->
+    <h1 class="text-3xl text-center font-extrabold text-gray-800 mb-6">
+        📚 Book Recommendations
+    </h1>
+    
+    <!-- Form -->
+    <form method="get" class="flex flex-col gap-4">
+        <input 
+            type="text" 
+            name="query" 
+            placeholder="Enter a theme (e.g., mystery, romance)" 
+            class="p-3 border-2 border-blue-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-200"
+        >
+        <button 
+            type="submit" 
+            class="w-ful px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 ease-in-out">
+            🎯 Get Recommendations
+        </button>
+    </form>
+
+    <!-- Response Section -->
+    <div class="mt-6 p-6 bg-white rounded-lg shadow-md">
+        <p class="text-gray-700 text-lg">
+            {{ response }}
+        </p>
+    </div>
+</div>
+</div>
+
+
+
+
+{% endblock %}

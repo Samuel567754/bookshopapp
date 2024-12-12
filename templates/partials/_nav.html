@@ -1,0 +1,652 @@
+{% load static %}
+
+{% comment %} {% load notifications_tags %} {% endcomment %}
+
+
+<nav class=" bg-white border-gray-200 dark:bg-gray-900 w-full fixed top-0 left-0 z-50">
+    <div
+      class="max-w-screen-xl flex flex-wrap items-center justify-between m-auto py-4"
+    >
+      <a href="{% url 'catalog:book_list' %}" class="flex items-center space-x-3">
+        <img
+          src="{% static 'images/WebLaravelFiles/webasset (4).png' %}"
+          class="h-10"
+          alt="book image"
+        />
+        <span
+          class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+          >BookShop</span
+        >
+      </a>
+
+      <div class="flex items-center md:order-2 space-x-3">
+        <!-- Wishlist Icon with Badge -->
+        <a
+          href="{% url 'wishlist' %}"
+          class="relative inline-block text-gray-700 hover:text-indigo-600 transition duration-200"
+        >
+        <svg
+        class="h-6 w-6 mr-2"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+        />
+      </svg>
+          {% if wishlist_count > 0 %}
+          <span
+            class="absolute w-5 h-5 -top-2 left-5 inline-flex items-center justify-center px-2 py-1 text-xs font-bold text-white bg-red-500 rounded-full"
+          >
+            {{ wishlist_count }}
+          </span>
+          {% endif %}
+        </a>
+        <!-- Cart Icon with Badge -->
+        <a
+          href="{% url 'cart_detail' %}"
+          class="relative inline-block mr-4 text-gray-700 hover:text-indigo-600 transition duration-200"
+        >
+          <svg
+            class="h-6 w-6 "
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0z"
+            />
+          </svg>
+          {% if cart_count > 0 %}
+          <span
+            class="absolute w-5 h-5 -top-2 left-5 inline-flex items-center justify-center px-2 py-1 text-xs font-bold text-white bg-red-500 rounded-full"
+          >
+            {{ cart_count }}
+          </span>
+          {% endif %}
+        </a>
+
+        <!-- Notification Bell Icon with Badge -->
+{% comment %} <div class="relative">
+  <button id="notificationButton" class="relative focus:outline-none" onclick="toggleDropdown()">
+      <svg class="w-8 h-8 text-teal-600 animate-wiggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21">
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              d="M15.585 15.5H5.415A1.65 1.65 0 0 1 4 13a10.526 10.526 0 0 0 1.5-5.415V6.5a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.085c0 1.907.518 3.78 1.5 5.415a1.65 1.65 0 0 1-1.415 2.5zm1.915-11c-.267-.934-.6-1.6-1-2s-1.066-.733-2-1m-10.912 3c.209-.934.512-1.6.912-2s1.096-.733 2.088-1M13 17c-.667 1-1.5 1.5-2.5 1.5S8.667 18 8 17" />
+      </svg>
+      {% if notification_count > 0 %}
+          <div class="px-1 bg-teal-500 rounded-full text-center text-white text-sm absolute -top-3 -right-2">
+              {{ notification_count }}
+              <div class="absolute top-0 right-0 rounded-full -z-10 animate-ping bg-teal-200 w-full h-full"></div>
+          </div>
+      {% endif %}
+  </button>
+
+  <!-- Dropdown for Notifications List -->
+  <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-80 max-h-96 overflow-y-auto bg-white border border-gray-200 shadow-lg rounded-lg z-50">
+      <div class="container mx-auto mt-4 p-4">
+          <h2 class="text-lg font-bold mb-4">Your Notifications</h2>
+
+          {% if notifications %}
+              <ul>
+                  {% for notification in notifications %}
+                      <li id="notification-{{ notification.id }}" class="mb-4 p-4 border-b last:border-b-0 border-gray-200 rounded bg-white {% if not notification.is_read %}bg-blue-50{% endif %}">
+                          <strong class="block text-gray-800">{{ notification.title }}</strong>
+                          <p class="text-sm text-gray-700">{{ notification.message }}</p>
+                          <p class="text-xs text-gray-500">Posted on: {{ notification.created_at }}</p>
+
+                          {% if not notification.is_read %}
+                              <a href="javascript:void(0);" onclick="markAsRead({{ notification.id }})" class="text-blue-500 hover:underline text-sm">Mark as read</a>
+                          {% endif %}
+                      </li>
+                  {% endfor %}
+              </ul>
+          {% else %}
+              <p class="text-gray-500">You have no notifications.</p>
+          {% endif %}
+          <div class="mt-4 text-center">
+              <a href="javascript:void(0);" onclick="clearAllNotifications()" class="text-red-500 hover:underline">Clear all notifications</a>
+          </div>
+      </div>
+  </div>
+</div> {% endcomment %}
+
+
+
+
+
+<button id="dropdownNotificationButton" data-dropdown-toggle="dropdownNotification" class="relative inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400" type="button">
+  <svg class="w-8 h-8 text-teal-600 animate-wiggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        d="M15.585 15.5H5.415A1.65 1.65 0 0 1 4 13a10.526 10.526 0 0 0 1.5-5.415V6.5a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.085c0 1.907.518 3.78 1.5 5.415a1.65 1.65 0 0 1-1.415 2.5zm1.915-11c-.267-.934-.6-1.6-1-2s-1.066-.733-2-1m-10.912 3c.209-.934.512-1.6.912-2s1.096-.733 2.088-1M13 17c-.667 1-1.5 1.5-2.5 1.5S8.667 18 8 17" />
+</svg>
+  
+{% if notification_count > 0 %}
+<div class="px-1 bg-teal-500 rounded-full text-center text-white text-sm absolute -top-3 -right-2">
+    {{ notification_count }}
+    <div class="absolute top-0 right-0 rounded-full -z-10 animate-ping bg-teal-200 w-full h-full"></div>
+</div>
+{% endif %}
+  </button>
+  
+  <!-- Dropdown menu -->
+  <div id="dropdownNotification" class="z-20 hidden w-full max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700 max-h-96 overflow-y-auto" aria-labelledby="dropdownNotificationButton">
+    <div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
+        Notifications 
+    </div>
+    {% if notifications %}
+    {% for notification in notifications %}
+    <div id="notification-{{ notification.id }}" class="relative divide-y divide-gray-100 dark:divide-gray-700">
+      <div class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+        <div class="flex-shrink-0">
+          <img class="rounded-full w-11 h-11" src="/docs/images/people/profile-picture-5.jpg" alt="Robert image">
+          <div class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-purple-500 border border-white rounded-full dark:border-gray-800">
+            <svg class="w-2 h-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+              <path d="M11 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm8.585 1.189a.994.994 0 0 0-.9-.138l-2.965.983a1 1 0 0 0-.685.949v8a1 1 0 0 0 .675.946l2.965 1.02a1.013 1.013 0 0 0 1.032-.242A1 1 0 0 0 20 12V2a1 1 0 0 0-.415-.811Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="w-full ps-3">
+            <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400"><span class="font-semibold text-gray-900 dark:text-white">{{ notification.title }}</span> </div>
+            <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">{{ notification.message }} </div>
+            <p class="text-xs text-gray-500">Posted on: {{ notification.created_at }}</p>
+            <div class="text-xs text-blue-600 dark:text-blue-500"></div>
+
+            {% if not notification.is_read %}
+            <a href="javascript:void(0);" onclick="markAsRead({{ notification.id }})" class="mark-as-read-link text-blue-500 hover:underline text-sm">Mark as read</a>
+            {% endif %}           
+        </div>
+          <!-- X icon for removing notification -->
+          <form id="delete-notification-form-{{ notification.id }}" action="{% url 'notifications:delete_notification' notification.id %}" method="POST" class="absolute top-2 right-2">
+            {% csrf_token %}
+            <button type="button" onclick="removeNotification({{ notification.id }})" class="text-gray-400 hover:text-gray-600">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </form>
+        
+        
+      </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <div class="flex items-center justify-center h-40 bg-gray-50 border border-gray-200 rounded-lg shadow-inner">
+      <p class="text-gray-500 text-center text-sm font-semibold bg-gray-100 px-4 py-2 rounded-full shadow-sm">
+          You have no new notifications.
+      </p> 
+  </div>
+  {% endif %}
+
+  <a href="{% url 'notifications:view_all_notifications' %}" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white transition duration-200">
+    <div class="inline-flex items-center">
+        <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+            <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+        </svg>
+        View All
+    </div>
+</a>
+
+<div class="mt-4 text-center">
+    <a href="javascript:void(0);" onclick="clearAllNotifications()" 
+       class="inline-flex items-center text-red-500 hover:underline font-medium transition duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+        Clear All Notifications
+    </a>
+</div>
+  </div>
+  
+      
+
+        {% if user.is_authenticated %}
+        <!-- User Menu Button for Authenticated Users -->
+        <button
+          type="button"
+          class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          id="user-menu-button"
+          aria-expanded="false"
+          data-dropdown-toggle="user-dropdown"
+          data-dropdown-placement="bottom"
+        >
+          <span class="sr-only">Open user menu</span>
+          <img
+            class="w-8 h-8 rounded-full"
+            src="/docs/images/people/profile-picture-3.jpg"
+            alt="user photo"
+          />
+        </button>
+        <!-- Dropdown menu -->
+        <div
+          class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+          id="user-dropdown"
+        >
+          <div class="px-4 py-3">
+            <span class="block text-sm text-gray-900 dark:text-white"
+              >{{user.username}}</span
+            >
+            <span
+              class="block text-sm text-gray-500 truncate dark:text-gray-400"
+              >{{user.email}}</span
+            >
+          </div>
+          <ul class="py-2" aria-labelledby="user-menu-button">
+            <li>
+              <a
+                href="{% url 'profile' %}"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >Settings</a
+              >
+            </li>
+            <li>
+              <a
+                href="{% url 'logout' %}"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >Sign out</a
+              >
+            </li>
+          </ul>
+        </div>
+        {% else %}
+        <!-- Auth Links for Unauthenticated Users -->
+        <div class="space-x-2">
+          <a
+            href="{% url 'login' %}"
+            class="inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-indigo-600 hover:text-white transition duration-200"
+            >Login</a
+          >
+          <a
+            href="{% url 'register' %}"
+            class="inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-indigo-600 hover:text-white transition duration-200"
+            >Register</a
+          >
+        </div>
+        {% endif %}
+
+        <!-- Responsive Menu Button -->
+        <button
+          data-collapse-toggle="navbar-user"
+          type="button"
+          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-user"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
+          </svg>
+        </button>
+      </div>
+      <!-- Navbar Links -->
+      <div
+        class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+        id="navbar-user"
+      >
+        <ul
+          class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-4 md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+        >
+        <li>
+          <a
+            href="{% url 'catalog:book_list' %}"
+            class="flex items-center py-2 px-4 rounded-2xl transition-colors duration-300 
+              {% if request.resolver_match.url_name == 'book_list' %}text-blue-600 font-semibold bg-blue-200{% else %}text-gray-700 bg-transparent hover:bg-gray-100{% endif %}"
+            aria-current="page"
+          >
+            <!-- Home Icon -->
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2L2 10h3v8h4v-5h2v5h4v-8h3L10 2z" />
+            </svg>
+            Home
+          </a>
+        </li>
+        
+        <li>
+          <a
+            href="{% url 'about_us' %}"
+            class="flex items-center py-2 px-4 rounded-2xl transition-colors duration-300 
+              {% if request.resolver_match.url_name == 'about_us' %}text-blue-600 font-semibold bg-blue-200{% else %}text-gray-700 bg-transparent hover:bg-gray-100{% endif %}"
+          >
+            <!-- About Icon -->
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a8 8 0 110 16 8 8 0 010-16zm1 11H9v2h2v-2zm0-8H9v6h2V5z" />
+            </svg>
+            About
+          </a>
+        </li>
+        
+        <li>
+          <a
+            href="{% url 'services' %}"
+            class="flex items-center py-2 px-4 rounded-2xl transition-colors duration-300 
+              {% if request.resolver_match.url_name == 'services' %}text-blue-600 font-semibold bg-blue-200{% else %}text-gray-700 bg-transparent hover:bg-gray-100{% endif %}"
+          >
+            <!-- Services Icon -->
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M4 4h12v2H4V4zm0 4h12v2H4V8zm0 4h12v2H4v-2zm0 4h12v2H4v-2z" />
+            </svg>
+            Services
+          </a>
+        </li>
+        
+        <li>
+          <a
+            href="{% url 'shop' %}"
+            class="flex items-center py-2 px-4 rounded-2xl transition-colors duration-300 
+              {% if request.resolver_match.url_name == 'shop' %}text-blue-600 font-semibold bg-blue-200{% else %}text-gray-700 bg-transparent hover:bg-gray-100{% endif %}"
+          >
+            <!-- Shop Icon -->
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M3 4a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2H3zm3 6h10v8H6v-8zm-3-4h16v2H3V6zm1 4h3v2H4v-2z" />
+            </svg>
+            Shop
+          </a>
+        </li>
+        
+        <li>
+          <a
+            href="{% url 'contact_us' %}"
+            class="flex items-center py-2 px-4 rounded-2xl transition-colors duration-300 
+              {% if request.resolver_match.url_name == 'contact_us' %}text-blue-600 font-semibold bg-blue-200{% else %}text-gray-700 bg-transparent hover:bg-gray-100{% endif %}"
+          >
+            <!-- Contact Icon -->
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 8l8 5 8-5-8-5-8 5zm0 6h16v2H2v-2zm0-2v2h16v-2l-8 5-8-5z" />
+            </svg>
+            Contact
+          </a>
+        </li>
+        
+        
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+ <!-- JavaScript to Toggle Dropdown and Close When Clicking Outside -->
+<script>
+
+
+function removeNotification(notificationId) {
+  const notificationElement = document.getElementById(`notification-${notificationId}`);
+  if (notificationElement) {
+      notificationElement.style.display = 'none'; // Temporarily hide the notification
+
+      // Get the CSRF token and form action from the form
+      const form = document.getElementById(`delete-notification-form-${notificationId}`);
+      const csrfToken = form.querySelector('[name="csrfmiddlewaretoken"]').value;
+
+      fetch(form.action, {
+          method: 'POST', // Use POST to delete
+          headers: {
+              'X-CSRFToken': csrfToken, // Ensure CSRF token is sent
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 'delete': true }) // Optional body if needed for your API
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (!data.success) {
+              console.error(data.error || 'Failed to delete notification');
+              alert(data.error || 'Error deleting notification');
+              notificationElement.style.display = ''; // Show again if error occurs
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('Error deleting notification.');
+          notificationElement.style.display = ''; // Show again if error occurs
+      });
+  }
+}
+
+
+
+
+
+  // Toggle dropdown visibility
+  function toggleDropdown() {
+      document.getElementById("notificationDropdown").classList.toggle("hidden");
+  }
+
+  // Close dropdown if clicked outside
+  document.addEventListener("click", function(event) {
+      const dropdown = document.getElementById("notificationDropdown");
+      const button = document.getElementById("notificationButton");
+
+      if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+          dropdown.classList.add("hidden");
+      }
+  });
+
+
+ {% comment %} // Mark a single notification as read
+function markAsRead(notificationId) {
+  fetch(`/notifications/mark_as_read/${notificationId}/`, {
+      method: 'GET',
+      headers: {
+          'X-CSRFToken': getCSRFToken(),  // Ensure you send the CSRF token if needed
+      }
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          // Find the notification by ID and update its appearance
+          const notificationElement = document.getElementById(`notification-${notificationId}`);
+          if (notificationElement) {
+              // Update the UI to mark it as read
+              notificationElement.classList.remove('bg-blue-100');
+              notificationElement.classList.add('bg-gray-100');  // Change background to gray
+              
+              const markAsReadLink = notificationElement.querySelector('a');
+              if (markAsReadLink) {
+                  markAsReadLink.style.display = 'none';  // Hide the "Mark as read" link
+              }
+          }
+
+           // Update the notification count
+           const notificationCountElement = document.getElementById('notification-count');
+           if (notificationCountElement) {
+               notificationCountElement.textContent = data.notification_count;
+           }
+
+          // Show success toast
+          Swal.fire({
+              toast: true,
+              icon: 'success',
+              title: 'Notification marked as read',
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+          });
+      } else {
+          Swal.fire({
+              toast: true,
+              icon: 'error',
+              title: 'Error marking notification as read',
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+          });
+      }
+  })
+  .catch(error => console.error('Error:', error));
+}  {% endcomment %}
+
+
+
+
+function markAsRead(notificationId) {
+  fetch(`/notifications/mark_as_read/${notificationId}/`, {
+      method: 'GET',
+      headers: {
+          'X-CSRFToken': getCSRFToken(),  // Ensure you send the CSRF token if needed
+          'Content-Type': 'application/json',
+      }
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+  })
+  .then(data => {
+      if (data.success) {
+          // Find and update the notification element
+          const notificationElement = document.getElementById(`notification-${notificationId}`);
+          if (notificationElement) {
+              notificationElement.classList.replace('bg-blue-100', 'bg-gray-100');  // Change background to gray
+              
+              // Hide "Mark as read" link
+              const markAsReadLink = notificationElement.querySelector('.mark-as-read-link');
+              if (markAsReadLink) {
+                  markAsReadLink.style.display = 'none';
+              }
+          }
+
+          // Update notification count
+          const notificationCountElement = document.getElementById('notification-count');
+          if (notificationCountElement) {
+              notificationCountElement.textContent = data.notification_count;
+          }
+
+          // Success message
+          Swal.fire({
+              toast: true,
+              icon: 'success',
+              title: 'Notification marked as read',
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+          });
+      } else {
+          throw new Error('Server returned an unsuccessful response');
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      Swal.fire({
+          toast: true,
+          icon: 'error',
+          title: 'Error marking notification as read',
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+      });
+  });
+}
+
+
+
+function clearAllNotifications() {
+  fetch(`/notifications/clear_notifications/`, {
+      method: 'POST',
+      headers: {
+          'X-CSRFToken': getCSRFToken(),
+          'Content-Type': 'application/json'
+      }
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          // Clear the notifications display
+          document.getElementById('dropdownNotification').innerHTML = '<p class="text-gray-500 text-center text-sm font-semibold bg-gray-100 px-4 py-2 rounded-full shadow-sm">You have no notifications.</p>';
+
+          // Reset the notification count in the UI
+          const notificationCountElement = document.querySelector('#notificationButton .notification-count');
+          if (notificationCountElement) {
+              notificationCountElement.textContent = '0';
+          }
+
+          // Reload notifications (this could be an AJAX call to refresh the notifications list)
+          loadNotifications();
+
+          // Show success toast
+          Swal.fire({
+              toast: true,
+              icon: 'success',
+              title: 'All notifications cleared',
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+          });
+      }
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+// Function to reload notifications after clearing
+function loadNotifications() {
+  fetch('/notifications/')
+      .then(response => response.json())
+      .then(data => {
+          // Update the notification dropdown
+          const notificationDropdown = document.getElementById('notificationDropdown');
+          if (data.notifications.length === 0) {
+              notificationDropdown.innerHTML = '<p class="text-gray-500">You have no notifications.</p>';
+          } else {
+              let htmlContent = '<ul>';
+              data.notifications.forEach(notification => {
+                  htmlContent += `
+                      <li id="notification-${notification.id}" class="mb-4 p-4 border rounded ${notification.is_read ? 'bg-gray-100' : 'bg-blue-100'}">
+                          <strong>${notification.title}</strong>
+                          <p>${notification.message}</p>
+                          <p class="text-sm text-gray-500">Posted on: ${notification.created_at}</p>
+                          ${notification.is_read ? '' : `<a href="javascript:void(0);" onclick="markAsRead(${notification.id})" class="text-blue-500">Mark as read</a>`}
+                      </li>
+                  `;
+              });
+              htmlContent += '</ul>';
+              notificationDropdown.innerHTML = htmlContent;
+          }
+
+          // Update notification count
+          document.querySelector('.notification-count').textContent = data.notification_count;
+      })
+      .catch(error => console.error('Error:', error));
+}
+
+
+// Utility function to get CSRF token from the cookie
+function getCSRFToken() {
+  const name = 'csrftoken';
+  const cookieValue = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+  return cookieValue ? decodeURIComponent(cookieValue.split('=')[1]) : '';
+}
+
+</script>
+
+  {% comment %} {% if request.path == '/services/' %}text-blue-600 font-semibold{% else %}text-gray-700{% endif %} {% endcomment %}

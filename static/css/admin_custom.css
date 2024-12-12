@@ -1,0 +1,14 @@
+/* Styles for resizing the admin logo */
+
+/* Ensures the logo scales well and is centered */
+.custom-admin-logo {
+    width: 400px;           /* Adjust the width as needed */
+    height: auto;           /* Maintain aspect ratio */
+    border-radius: 50%;     /* Make it circular */
+    object-fit: contain;    /* Ensures image fits within the width/height without cropping */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);  /* Adds a soft shadow effect */
+    margin: 10px auto;      /* Centers the logo with spacing */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

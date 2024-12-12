@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - My bookshop{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="mt-10 h-64 flex justify-center items-center relative">
+    <div class="inset-0 bg-black opacity-60 absolute z-10"></div>
+    <div class="aos text-center relative z-20" data-aos="flip-left"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="2000">
+     <h2 class="mb-2 text-3xl lg:text-4xl text-white font-bold leading-tight">Contact Us</h2>
+        <p class="text-lg text-white mx-auto">Feel free to reach out to us if you have any questions</p>
+    </div>
+    <div class="inset-0 absolute z-0">  
+    <img src="{% static 'images/shopbg/shopbg (105).jpg' %}" class="w-full h-full object-fill object-center">
+    </div> 
+</div>
+
+<div class="container mx-auto px-4 py-6">
+
+    {% include 'partials/_contactsec.html' %}
+
+
+      
+    <div class="text-center flex justify-center items-center  my-8">
+        <!-- Customer Support Button -->
+      <a href="{% url 'customer_support_chat' %}" class="max-w-md flex items-center px-6 py-3 bg-gradient-to-r from-purple-400 to-pink-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-purple-500 hover:to-pink-600 transition-transform transform hover:scale-105">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h8M12 4v16m0-16l-4 4m4-4l4 4" />
+        </svg>
+        Customer Support
+    </a>
+    </div>
+</div>
+{% endblock %}

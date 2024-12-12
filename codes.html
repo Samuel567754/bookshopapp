@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}My Website{% endblock %}</title>
+    {% comment %} {% load sweetify %} {% endcomment %}
+    {% load static %}
+    {% comment %} <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    /> {% endcomment %}
+    <!-- Tailwind CSS CDN -->
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+
+
+    <nav class="bg-gray-800 p-4 shadow">
+      <div class="container mx-auto flex justify-between items-center">
+          <div class="flex items-center space-x-4">
+              <a href="{% url 'post-list' %}" class="text-white font-bold text-xl">MySite</a> <!-- Replace 'MySite' with your site name -->
+          </div>
+          <ul class="flex space-x-6">
+              {% if user.is_authenticated %}
+                  <li>
+                      <a href="{% url 'profile' %}" class="text-white font-semibold hover:text-gray-300 transition duration-200">Profile</a>
+                  </li>
+                  <li>
+                      <a href="{% url 'logout' %}" class="text-white font-semibold hover:text-gray-300 transition duration-200">Logout</a>
+                  </li>
+              {% else %}
+                  <li>
+                      <a href="{% url 'login' %}" class="text-white font-semibold hover:text-gray-300 transition duration-200">Login</a>
+                  </li>
+                  <li>
+                      <a href="{% url 'register' %}" class="text-white font-semibold hover:text-gray-300 transition duration-200">Register</a>
+                  </li>
+              {% endif %}
+          </ul>
+      </div>
+  </nav>
+
+
+  <div class="relative bg-indigo-600">
+    <div class="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Welcome to Our Website</h1>
+        <p class="mt-6 text-xl text-indigo-100 max-w-3xl">Transform your digital presence with our professional web solutions.</p>
+        <div class="mt-10">
+            <a href="" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
+                Get Started
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:text-center">
+            <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Features</h2>
+            <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                Everything you need
+            </p>
+        </div>
+
+        <div class="mt-10">
+            <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Feature 1 -->
+                <div class="relative">
+                    <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                        <!-- Icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div class="ml-16">
+                        <h3 class="text-lg font-medium text-gray-900">Fast Performance</h3>
+                        <p class="mt-2 text-base text-gray-500">
+                            Optimized for speed and efficiency to provide the best user experience.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="relative">
+                    <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
+                    </div>
+                    <div class="ml-16">
+                        <h3 class="text-lg font-medium text-gray-900">Customizable</h3>
+                        <p class="mt-2 text-base text-gray-500">
+                            Fully customizable to match your brand and requirements.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="relative">
+                    <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="ml-16">
+                        <h3 class="text-lg font-medium text-gray-900">Reliable</h3>
+                        <p class="mt-2 text-base text-gray-500">
+                            Built with reliable technologies for maximum uptime.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="container mx-auto mt-6">
+      {% if messages %}
+        {% for message in messages %}
+            <script>
+                Swal.fire({
+                    icon: '{{ message.tags }}',  // For success, error, info, etc.
+                    title: '{{ message.level_tag }}',  // The level of the message
+                    text: '{{ message }}',  // The message itself
+                    timer: 3000,
+                });
+            </script>
+        {% endfor %}
+    {% endif %} 
+
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: '{{ message.tags }}',  // For success, error, info, etc.
+                title: '{{ message.level_tag }}',  // The level of the message
+                text: '{{ message }}',  // The message itself
+                toast: true,  // Make it a toast notification
+                position: 'top-end',  // Position of the toast (e.g., 'top-end', 'bottom-end')
+                timer: 7000,  // Duration in milliseconds (3 seconds)
+                timerProgressBar: true,  // Show a progress bar on the toast
+                showConfirmButton: false,  // Hide the confirmation button
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+</div>
+
+    <div class="content">
+      {% block content %}{% endblock %}
+      <!-- Placeholder for child template content -->
+    </div>
+
+
+    <div class="bg-white">
+      <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+          <div class="text-center">
+              <h2 class="text-base font-semibold text-indigo-600 tracking-wide uppercase">About Us</h2>
+              <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Our Story</p>
+              <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Learn about our journey and what makes us unique.</p>
+          </div>
+          
+          <div class="mt-16">
+              <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                  <div class="relative">
+                      <div class="aspect-w-16 aspect-h-9">
+                          <img class="object-cover shadow-lg rounded-lg" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Team working">
+                      </div>
+                  </div>
+                  <div class="lg:pl-8">
+                      <div class="text-base max-w-prose mx-auto lg:max-w-none">
+                          <p class="text-lg text-gray-500">
+                              We are a team of passionate professionals dedicated to delivering exceptional web solutions. Our journey began with a simple mission: to help businesses succeed in the digital world.
+                          </p>
+                          <div class="mt-5 prose prose-indigo text-gray-500">
+                              <p>
+                                  With years of experience in web development and design, we understand what it takes to create successful online presence. Our approach combines creativity with technical expertise to deliver solutions that not only look great but also perform exceptionally.
+                              </p>
+                              <p>
+                                  We believe in building long-term relationships with our clients, understanding their needs, and delivering solutions that exceed expectations.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <nav class="bg-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="" class="text-2xl font-bold text-indigo-600">Bookstore</a>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:space-x-8">
+                    <a href="" class="inline-flex items-center px-1 pt-1 text-gray-900 hover:text-indigo-600">Home</a>
+                    <div class="relative group">
+                        <button class="inline-flex items-center px-1 pt-1 text-gray-900 hover:text-indigo-600">
+                            Categories
+                            <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="absolute z-10 hidden group-hover:block w-48 bg-white rounded-md shadow-lg py-1">
+                            {% for category in categories %}
+                            <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ category.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="" class="text-gray-900 hover:text-indigo-600">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                </a>
+                <a href="" class="text-gray-900 hover:text-indigo-600">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+  <!-- Hero Section -->
+  <div class="relative bg-indigo-600">
+    <div class="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Welcome to Our Bookstore</h1>
+        <p class="mt-6 text-xl text-indigo-100 max-w-3xl">Discover a world of knowledge with our extensive collection of books.</p>
+    </div>
+</div>
+
+<!-- Featured Books -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-2xl font-bold text-gray-900 mb-8">Featured Books</h2>
+    <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+        {% for book in featured_books %}
+        <div class="group relative">
+            <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75">
+                {% if book.image %}
+                <img src="{{ book.image.url }}" alt="{{ book.title }}" class="w-full h-full object-center object-cover">
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center">
+                    <svg class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                {% endif %}
+            </div>
+            <div class="mt-4 flex justify-between">
+                <div>
+                    <h3 class="text-sm text-gray-700">
+                        <a href="{% url 'book_detail' book.id %}">
+                            <span aria-hidden="true" class="absolute inset-0"></span>
+                            {{ book.title }}
+                        </a>
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-500">{{ book.author }}</p>
+                </div>
+                <div class="text-right">
+                    {% if book.discount_price %}
+                    <p class="text-sm font-medium text-gray-900">${{ book.discount_price }}</p>
+                    <p class="text-sm line-through text-gray-500">${{ book.price }}</p>
+                    {% else %}
+                    <p class="text-sm font-medium text-gray-900">${{ book.price }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- All Books -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-2xl font-bold text-gray-900 mb-8">All Books</h2>
+    <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+        {% for book in books %}
+        <div class="group relative">
+            <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75">
+                {% if book.image %}
+                <img src="{{ book.image.url }}" alt="{{ book.title }}" class="w-full h-full object-center object-cover">
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center">
+                    <svg class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                {% endif %}
+            </div>
+            <div class="mt-4 flex justify-between">
+                <div>
+                    <h3 class="text-sm text-gray-700">
+                        <a href="{% url 'book_detail' book.id %}">
+                            <span aria-hidden="true" class="absolute inset-0"></span>
+                            {{ book.title }}
+                        </a>
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-500">{{ book.author }}</p>
+                </div>
+                <div class="text-right">
+                    {% if book.discount_price %}
+                    <p class="text-sm font-medium text-gray-900">${{ book.discount_price }}</p>
+                    <p class="text-sm line-through text-gray-500">${{ book.price }}</p>
+                    {% else %}
+                    <p class="text-sm font-medium text-gray-900">${{ book.price }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div> 
+
+
+     <!-- Footer -->
+     <footer class="bg-gray-800 text-white mt-12">
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div>
+                  <h3 class="text-lg font-semibold mb-4">About Us</h3>
+                  <p class="text-gray-300">Professional website built with Django and Tailwind CSS.</p>
+              </div>
+              <div>
+                  <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                  <ul class="space-y-2">
+                      <li><a href="" class="text-gray-300 hover:text-white">Home</a></li>
+                      <li><a href="" class="text-gray-300 hover:text-white">About</a></li>
+                      <li><a href="" class="text-gray-300 hover:text-white">Services</a></li>
+                      <li><a href="" class="text-gray-300 hover:text-white">Contact</a></li>
+                  </ul>
+              </div>
+              <div>
+                  <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
+                  <ul class="space-y-2 text-gray-300">
+                      <li>Email: info@example.com</li>
+                      <li>Phone: (123) 456-7890</li>
+                      <li>Address: 123 Main St, City, Country</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="mt-8 border-t border-gray-700 pt-8 text-center">
+              <p class="text-gray-300">&copy; 2024 Your Company. All rights reserved.</p>
+          </div>
+      </div>
+  </footer>
+   
+  </body>
+</html>
+
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+      <div class="text-center">
+          <h2 class="text-base font-semibold text-indigo-600 tracking-wide uppercase">About Us</h2>
+          <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Our Story</p>
+          <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Learn about our journey and what makes us unique.</p>
+      </div>
+      
+      <div class="mt-16">
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <div class="relative">
+                  <div class="aspect-w-16 aspect-h-9">
+                      <img class="object-cover shadow-lg rounded-lg" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Team working">
+                  </div>
+              </div>
+              <div class="lg:pl-8">
+                  <div class="text-base max-w-prose mx-auto lg:max-w-none">
+                      <p class="text-lg text-gray-500">
+                          We are a team of passionate professionals dedicated to delivering exceptional web solutions. Our journey began with a simple mission: to help businesses succeed in the digital world.
+                      </p>
+                      <div class="mt-5 prose prose-indigo text-gray-500">
+                          <p>
+                              With years of experience in web development and design, we understand what it takes to create successful online presence. Our approach combines creativity with technical expertise to deliver solutions that not only look great but also perform exceptionally.
+                          </p>
+                          <p>
+                              We believe in building long-term relationships with our clients, understanding their needs, and delivering solutions that exceed expectations.
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %} 
+
+
+
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-x-8">
+          <!-- Book Image -->
+          <div class="lg:max-w-lg lg:self-end">
+              <div class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden">
+                  {% if book.image %}
+                  <img src="{{ book.image.url }}" alt="{{ book.title }}" class="w-full h-full object-center object-cover">
+                  {% else %}
+                  <div class="w-full h-full flex items-center justify-center bg-gray-200">
+                      <svg class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                  </div>
+                  {% endif %}
+              </div>
+          </div>
+
+          <!-- Book Info -->
+          <div class="mt-10 lg:mt-0 lg:col-start-2 lg:row-span-2 lg:self-center">
+              <div class="max-w-xl">
+                  <div class="mt-4">
+                      <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{{ book.title }}</h1>
+                  </div>
+
+                  <section aria-labelledby="information-heading" class="mt-4">
+                      <h2 id="information-heading" class="sr-only">Book information</h2>
+
+                      <div class="flex items-center">
+                          <p class="text-lg text-gray-900 sm:text-xl">
+                              {% if book.discount_price %}
+                              ${{ book.discount_price }}
+                              <span class="ml-2 text-sm line-through text-gray-500">${{ book.price }}</span>
+                              {% else %}
+                              ${{ book.price }}
+                              {% endif %}
+                          </p>
+                      </div>
+
+                      <div class="mt-4 space-y-6">
+                          <p class="text-base text-gray-500">{{ book.description }}</p>
+                      </div>
+
+                      <div class="mt-6">
+                          <div class="flex items-center">
+                              <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                              </svg>
+                              <p class="ml-2 text-sm text-gray-500">By {{ book.author }}</p>
+                          </div>
+                      </div>
+                  </section>
+
+                  <section aria-labelledby="options-heading" class="mt-8">
+                      <div class="flex space-x-4">
+                          <button type="button" class="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                              Add to Cart
+                          </button>
+                          <button type="button" class="w-full bg-white border border-indigo-600 rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                              Add to Wishlist
+                          </button>
+                      </div>
+                  </section>
+              </div>
+          </div>
+      </div>
+  </div>
+</div> 
+
+
+
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">Shopping Cart</h1>
+
+      <div class="mt-12">
+          {% if cart.cart_items.all %}
+          <div class="flow-root">
+              <ul role="list" class="-my-6 divide-y divide-gray-200">
+                  {% for item in cart.cart_items.all %}
+                  <li class="py-6 flex">
+                      <div class="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
+                          {% if item.book.image %}
+                          <img src="{{ item.book.image.url }}" alt="{{ item.book.title }}" class="w-full h-full object-center object-cover">
+                          {% else %}
+                          <div class="w-full h-full flex items-center justify-center bg-gray-200">
+                              <svg class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                              </svg>
+                          </div>
+                          {% endif %}
+                      </div>
+
+                      <div class="ml-4 flex-1 flex flex-col">
+                          <div>
+                              <div class="flex justify-between text-base font-medium text-gray-900">
+                                  <h3>
+                                      <a href="{% url 'book_detail' item.book.id %}">{{ item.book.title }}</a>
+                                  </h3>
+                                  <p class="ml-4">${{ item.book.final_price }}</p>
+                              </div>
+                              <p class="mt-1 text-sm text-gray-500">{{ item.book.author }}</p>
+                          </div>
+                          <div class="flex-1 flex items-end justify-between text-sm">
+                              <div class="flex items-center">
+                                  <label for="quantity" class="mr-2 text-gray-500">Qty</label>
+                                  <select id="quantity" name="quantity" class="rounded-md border-gray-300">
+                                      {% for i in "12345" %}
+                                      <option value="{{ forloop.counter }}" {% if item.quantity == forloop.counter %}selected{% endif %}>
+                                          {{ forloop.counter }}
+                                      </option>
+                                      {% endfor %}
+                                  </select>
+                              </div>
+                              <div class="flex">
+                                  <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                              </div>
+                          </div>
+                      </div>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
+
+          <div class="border-t border-gray-200 py-6">
+              <div class="flex justify-between text-base font-medium text-gray-900">
+                  <p>Subtotal</p>
+                  <p>${{ cart.total_price }}</p>
+              </div>
+              <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+              <div class="mt-6">
+                  <a href="#" class="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                      Checkout
+                  </a>
+              </div>
+              <div class="mt-6 flex justify-center text-sm text-center text-gray-500">
+                  <p>
+                      or
+                      <a href="{% url 'home' %}" class="text-indigo-600 font-medium hover:text-indigo-500">
+                          Continue Shopping<span aria-hidden="true"> &rarr;</span>
+                      </a>
+                  </p>
+              </div>
+          </div>
+          {% else %}
+          <div class="text-center py-12">
+              <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <h3 class="mt-2 text-sm font-medium text-gray-900">Your cart is empty</h3>
+              <p class="mt-1 text-sm text-gray-500">Start adding some books to your cart!</p>
+              <div class="mt-6">
+                  <a href="{% url 'home' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      Browse Books
+                  </a>
+              </div>
+          </div>
+          {% endif %}
+      </div>
+  </div>
+</div> 
+
+
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+      <div class="relative bg-white shadow-xl">
+          <h2 class="sr-only">Contact us</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3">
+              <!-- Contact information -->
+              <div class="relative overflow-hidden py-10 px-6 bg-indigo-700 sm:px-10 xl:p-12">
+                  <div class="absolute inset-0 pointer-events-none sm:hidden" aria-hidden="true">
+                      <svg class="absolute inset-0 w-full h-full" width="343" height="388" viewBox="0 0 343 388" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M-99 461.107L608.107-246l707.103 707.107-707.103 707.103L-99 461.107z" fill="url(#linear1)" fill-opacity=".1" />
+                          <defs>
+                              <linearGradient id="linear1" x1="254.553" y1="107.554" x2="961.66" y2="814.66" gradientUnits="userSpaceOnUse">
+                                  <stop stop-color="#fff"></stop>
+                                  <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
+                              </linearGradient>
+                          </defs>
+                      </svg>
+                  </div>
+                  <div class="absolute inset-0 pointer-events-none sm:hidden" aria-hidden="true">
+                      <svg class="absolute inset-0 w-full h-full" width="343" height="388" viewBox="0 0 343 388" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M-99 461.107L608.107-246l707.103 707.107-707.103 707.103L-99 461.107z" fill="url(#linear2)" fill-opacity=".1" />
+                          <defs>
+                              <linearGradient id="linear2" x1="254.553" y1="107.554" x2="961.66" y2="814.66" gradientUnits="userSpaceOnUse">
+                                  <stop stop-color="#fff"></stop>
+                                  <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
+                              </linearGradient>
+                          </defs>
+                      </svg>
+                  </div>
+                  <h3 class="text-lg font-medium text-white">Contact information</h3>
+                  <p class="mt-6 text-base text-indigo-50 max-w-3xl">Get in touch with us. We'd love to hear from you.</p>
+                  <dl class="mt-8 space-y-6">
+                      <dt><span class="sr-only">Phone number</span></dt>
+                      <dd class="flex text-base text-indigo-50">
+                          <svg class="flex-shrink-0 w-6 h-6 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                          </svg>
+                          <span class="ml-3">(123) 456-7890</span>
+                      </dd>
+                      <dt><span class="sr-only">Email</span></dt>
+                      <dd class="flex text-base text-indigo-50">
+                          <svg class="flex-shrink-0 w-6 h-6 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                          <span class="ml-3">contact@example.com</span>
+                      </dd>
+                  </dl>
+              </div>
+
+              <!-- Contact form -->
+              <div class="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
+                  <h3 class="text-lg font-medium text-gray-900">Send us a message</h3>
+                  <form action="#" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                      <div>
+                          <label for="first-name" class="block text-sm font-medium text-gray-900">First name</label>
+                          <div class="mt-1">
+                              <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                          </div>
+                      </div>
+                      <div>
+                          <label for="last-name" class="block text-sm font-medium text-gray-900">Last name</label>
+                          <div class="mt-1">
+                              <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                          </div>
+                      </div>
+                      <div class="sm:col-span-2">
+                          <label for="email" class="block text-sm font-medium text-gray-900">Email</label>
+                          <div class="mt-1">
+                              <input id="email" name="email" type="email" autocomplete="email" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                          </div>
+                      </div>
+                      <div class="sm:col-span-2">
+                          <label for="message" class="block text-sm font-medium text-gray-900">Message</label>
+                          <div class="mt-1">
+                              <textarea id="message" name="message" rows="4" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"></textarea>
+                          </div>
+                      </div>
+                      <div class="sm:col-span-2">
+                          <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                              Send Message
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div> 
+
+
+
+<div class="bg-white">
+  <!-- Hero Section -->
+  <div class="relative bg-indigo-600">
+      <div class="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+          <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Welcome to Our Bookstore</h1>
+          <p class="mt-6 text-xl text-indigo-100 max-w-3xl">Discover a world of knowledge with our extensive collection of books.</p>
+      </div>
+  </div>
+
+  <!-- Featured Books -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">Featured Books</h2>
+      <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+          {% for book in featured_books %}
+          <div class="group relative">
+              <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75">
+                  {% if book.image %}
+                  <img src="{{ book.image.url }}" alt="{{ book.title }}" class="w-full h-full object-center object-cover">
+                  {% else %}
+                  <div class="w-full h-full flex items-center justify-center">
+                      <svg class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                  </div>
+                  {% endif %}
+              </div>
+              <div class="mt-4 flex justify-between">
+                  <div>
+                      <h3 class="text-sm text-gray-700">
+                          <a href="{% url 'book_detail' book.id %}">
+                              <span aria-hidden="true" class="absolute inset-0"></span>
+                              {{ book.title }}
+                          </a>
+                      </h3>
+                      <p class="mt-1 text-sm text-gray-500">{{ book.author }}</p>
+                  </div>
+                  <div class="text-right">
+                      {% if book.discount_price %}
+                      <p class="text-sm font-medium text-gray-900">${{ book.discount_price }}</p>
+                      <p class="text-sm line-through text-gray-500">${{ book.price }}</p>
+                      {% else %}
+                      <p class="text-sm font-medium text-gray-900">${{ book.price }}</p>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+
+  <!-- All Books -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">All Books</h2>
+      <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+          {% for book in books %}
+          <div class="group relative">
+              <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75">
+                  {% if book.image %}
+                  <img src="{{ book.image.url }}" alt="{{ book.title }}" class="w-full h-full object-center object-cover">
+                  {% else %}
+                  <div class="w-full h-full flex items-center justify-center">
+                      <svg class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                  </div>
+                  {% endif %}
+              </div>
+              <div class="mt-4 flex justify-between">
+                  <div>
+                      <h3 class="text-sm text-gray-700">
+                          <a href="{% url 'book_detail' book.id %}">
+                              <span aria-hidden="true" class="absolute inset-0"></span>
+                              {{ book.title }}
+                          </a>
+                      </h3>
+                      <p class="mt-1 text-sm text-gray-500">{{ book.author }}</p>
+                  </div>
+                  <div class="text-right">
+                      {% if book.discount_price %}
+                      <p class="text-sm font-medium text-gray-900">${{ book.discount_price }}</p>
+                      <p class="text-sm line-through text-gray-500">${{ book.price }}</p>
+                      {% else %}
+                      <p class="text-sm font-medium text-gray-900">${{ book.price }}</p>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</div> 
+
+
+{% comment %} Services {% endcomment %}
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+      <div class="text-center">
+          <h2 class="text-base font-semibold text-indigo-600 tracking-wide uppercase">Services</h2>
+          <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">What We Offer</p>
+          <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Comprehensive solutions for your digital needs.</p>
+      </div>
+
+      <div class="mt-16">
+          <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              <!-- Service 1 -->
+              <div class="bg-gray-50 rounded-lg p-8 hover:shadow-lg transition-shadow duration-300">
+                  <div class="text-indigo-600 mb-4">
+                      <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                  </div>
+                  <h3 class="text-xl font-medium text-gray-900">Web Development</h3>
+                  <p class="mt-4 text-gray-500">Custom website development tailored to your specific needs and requirements.</p>
+              </div>
+
+              <!-- Service 2 -->
+              <div class="bg-gray-50 rounded-lg p-8 hover:shadow-lg transition-shadow duration-300">
+                  <div class="text-indigo-600 mb-4">
+                      <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                      </svg>
+                  </div>
+                  <h3 class="text-xl font-medium text-gray-900">UI/UX Design</h3>
+                  <p class="mt-4 text-gray-500">Beautiful and intuitive user interfaces that enhance user experience.</p>
+              </div>
+
+              <!-- Service 3 -->
+              <div class="bg-gray-50 rounded-lg p-8 hover:shadow-lg transition-shadow duration-300">
+                  <div class="text-indigo-600 mb-4">
+                      <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                  </div>
+                  <h3 class="text-xl font-medium text-gray-900">Performance Optimization</h3>
+                  <p class="mt-4 text-gray-500">Optimize your website for maximum speed and efficiency.</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div> 
+
+
+
+
+
+
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">My Wishlist</h1>
+
+      <div class="mt-12">
+          {% if wishlist.books.all %}
+          <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+              {% for book in wishlist.books.all %}
+              <div class="group relative">
+                  <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75">
+                      {% if book.image %}
+                      <img src="{{ book.image.url }}" alt="{{ book.title }}" class="w-full h-full object-center object-cover">
+                      {% else %}
+                      <div class="w-full h-full flex items-center justify-center">
+                          <svg class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                          </svg>
+                      </div>
+                      {% endif %}
+                  </div>
+                  <div class="mt-4">
+                      <h3 class="text-sm text-gray-700">
+                          <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
+                      </h3>
+                      <p class="mt-1 text-sm text-gray-500">{{ book.author }}</p>
+                      <div class="mt-2 <boltAction type="file" filePath="website/templates/website/wishlist.html">
+                      <div class="mt-2 flex justify-between items-center">
+                          <div>
+                              {% if book.discount_price %}
+                              <p class="text-sm font-medium text-gray-900">${{ book.discount_price }}</p>
+                              <p class="text-sm line-through text-gray-500">${{ book.price }}</p>
+                              {% else %}
+                              <p class="text-sm font-medium text-gray-900">${{ book.price }}</p>
+                              {% endif %}
+                          </div>
+                          <div class="flex space-x-2">
+                              <button type="button" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                                  Add to Cart
+                              </button>
+                              <button type="button" class="inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                  Remove
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+          {% else %}
+          <div class="text-center py-12">
+              <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              <h3 class="mt-2 text-sm font-medium text-gray-900">Your wishlist is empty</h3>
+              <p class="mt-1 text-sm text-gray-500">Start adding some books to your wishlist!</p>
+              <div class="mt-6">
+                  <a href="{% url 'home' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      Browse Books
+                  </a>
+              </div>
+          </div>
+          {% endif %}
+      </div>
+  </div>
+</div> 
+
+
+
+{% comment %} 
+{% extends 'website/base.html' %}
+
+{% block title %}Wishlist - Bookstore{% endblock %}
+
+{% block content %} 
+{% endblock %}
+{% endcomment %}
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bookstore{% endblock %}</title>
+    {% load static %}
+    {% load tailwind_tags %}
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="{% url 'home' %}" class="text-2xl font-bold text-indigo-600">Bookstore</a>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="{% url 'home' %}" class="inline-flex items-center px-1 pt-1 text-gray-900 hover:text-indigo-600">Home</a>
+                        <div class="relative group">
+                            <button class="inline-flex items-center px-1 pt-1 text-gray-900 hover:text-indigo-600">
+                                Categories
+                                <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="absolute z-10 hidden group-hover:block w-48 bg-white rounded-md shadow-lg py-1">
+                                {% for category in categories %}
+                                <a href="{% url 'category' category.name %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ category.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'cart' %}" class="text-gray-900 hover:text-indigo-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </a>
+                    <a href="{% url 'wishlist' %}" class="text-gray-900 hover:text-indigo-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About Us</h3>
+                    <p class="text-gray-300">Your one-stop destination for digital and physical books.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-300 hover:text-white">Home</a></li>
+                        <li><a href="{% url 'cart' %}" class="text-gray-300 hover:text-white">Cart</a></li>
+                        <li><a href="{% url 'wishlist' %}" class="text-gray-300 hover:text-white">Wishlist</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Email: support@bookstore.com</li>
+                        <li>Phone: (123) 456-7890</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 Bookstore. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

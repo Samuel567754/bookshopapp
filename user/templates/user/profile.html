@@ -1,0 +1,376 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard Profile - My Website{% endblock %}
+
+
+{% block content %}
+
+{% load static %}
+
+<div class="mt-10 h-64 flex justify-center items-center relative">
+    <div class="inset-0 bg-black opacity-60 absolute z-10"></div>
+    <div class="aos text-center relative z-20" data-aos="flip-left"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="2000">
+        <h2 class="mb-5 text-3xl lg:text-4xl text-white font-bold leading-tight">Welcome, {{ user.username }}!</h2>
+        <p class="text-lg text-white mx-auto">Explore your personal dashboard</p>
+    </div>
+    <div class="inset-0 absolute z-0"> 
+    <img src="{% static 'images/shopbg/shopbg (17).jpg' %}" class="w-full h-full object-fill object-center">
+    </div> 
+</div>
+
+<div class="container mx-auto px-4 py-1">
+    <div class="flex flex-col md:flex-row justify-between items-start">
+        <!-- Sidebar for Navigation -->
+        <aside class="w-full md:w-1/5 bg-gray-800 text-white rounded-lg shadow-lg p-6 md:min-h-screen">
+            <a href="{% url 'profile' %}">
+            <div class="flex items-center space-x-4 my-8">
+                <svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5A2.5 2.5 0 016.5 17H20m-16 2.5A2.5 2.5 0 004 15V4.5A2.5 2.5 0 016.5 2H17a2 2 0 012 2v13a2 2 0 01-2 2H6.5a2.5 2.5 0 01-2.5-2.5zM4 15h16"/>
+                </svg>
+                <h3 class="text-2xl font-semibold text-white">Dashboard</h3>
+            </div>
+            </a>
+
+            <ul class="space-y-12">
+                <li>
+                    <a href="#" data-url="{% url 'profile_overview' %}"
+                       class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                        <!-- Profile Icon -->
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A10.002 10.002 0 1112 22V20c-2.21 0-4-1.79-4-4H7c0 2.21 1.79 4 4 4h4c2.21 0 4-1.79 4-4h-1c0 2.21-1.79 4-4 4v2a10.002 10.002 0 01-6.879-4.196z" />
+                        </svg>
+                        Profile Overview
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-url="{% url 'user_receipts' %}"
+                       class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 2h10a2 2 0 012 2v16a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h8M8 10h8M8 14h4" />
+                    </svg>
+                        Receipt History
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-url="{% url 'user_purchases' %}"
+                       class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                        <!-- Posts Icon -->
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2v-6a2 2 0 00-2-2zM5 9V7a2 2 0 012-2h4M11 5H7m0 0V3m10 14h-4m0 0v2m0-2h4" />
+                        </svg>
+                        Your Purchases
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-url="{% url 'contact_support' %}"
+                    class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                     <!-- Envelope Icon -->
+                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l9 5 9-5M3 8l9 5 9-5M3 8v10a2 2 0 002 2h14a2 2 0 002-2V8m-2 0l-9 5-9-5" />
+                     </svg>
+                     Contact Support
+                 </a>
+                </li>
+                <li>
+                <a href="#" data-url="{% url 'user_downloads' %}"
+                    class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                        <!-- Download Icon -->
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4v12m0 0l-3-3m3 3l3-3M4 14v6a2 2 0 002 2h12a2 2 0 002-2v-6" />
+                        </svg>
+                        Paid Downloads
+                    </a>
+
+                </li>
+                <li>
+                    <a href="#" data-url="{% url 'user_orders' %}"
+                        class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                            <!-- Envelope Icon -->
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l9 6 9-6V6a2 2 0 00-2-2H5a2 2 0 00-2 2v2z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l9 6 9-6M3 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
+                            </svg>
+                            Your Orders
+                        </a>
+    
+                    </li>
+                <li>
+                    <a href="#" 
+                       class="flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                        <!-- Settings Icon -->
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M8 12h4m4-4h4M4 12h4m-4 4h4M4 8h4m12 4h4M8 16h4m0-4H4M4 4h16M8 8h8M8 16h8M8 4h8" />
+                        </svg>
+                        Settings
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}"
+                       class="flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                        <!-- Logout Icon -->
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12h6m-6 4h4m-4 4h4m4-6H9m6-6h-6" />
+                        </svg>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        
+
+        <!-- Main Content: Profile Info -->
+        <div id="dashboard-content" class="w-full md:w-4/5 bg-white shadow-lg rounded-lg overflow-hidden px-8 md:min-h-screen">
+
+            <div class="flex items-center m-8 justify-between mb-8">
+                <h1 class="text-2xl font-bold text-blue-600 text-center">Welcome, {{ user.username }}!</h1>
+                <div class="flex items-center space-x-2">
+                    <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+                    <div class="text-right">
+                        <p class="font-semibold">John Doe</p>
+                        <p class="text-sm text-gray-600">Premium Member</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-8 py-10">
+                <!-- Welcome Message -->
+    
+                <!-- Stats Section (adjust grid for small screens) -->
+               
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <a href="#" data-url="{% url 'user_downloads' %}" class="load-content">
+                        <div class="bg-blue-100 p-6 rounded-lg shadow-md text-center hover:bg-blue-200 transition duration-300 ease-in-out transform hover:scale-105">
+                            <div class="flex items-center justify-center space-x-4">
+                                <!-- Download Icon -->
+                                <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                </svg>
+                                <!-- Downloads Count and Label -->
+                                <div>
+                                    <h3 class="text-2xl font-bold text-blue-600">{{download_count}}</h3>
+                                    <p class="text-gray-700">Downloads</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                <div class="bg-green-100 p-6 rounded-lg shadow-md text-center hover:bg-green-200 transition duration-300 ease-in-out transform hover:scale-105">
+                    <div class="flex items-center justify-center space-x-4">
+                        <!-- Shopping Cart Icon -->
+                        <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/>
+                        </svg>
+                        <!-- Cart Count and Label -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-green-600">{{ cart_count }}</h3>
+                            <p class="text-gray-700">Cart Items</p>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="bg-yellow-100 p-6 rounded-lg shadow-md text-center hover:bg-yellow-200 transition duration-300 ease-in-out transform hover:scale-105">
+                    <div class="flex items-center justify-center space-x-4">
+                        <!-- Task/Checklist Icon -->
+                        <svg class="w-10 h-10 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7M5 7h14M5 11h9"/>
+                        </svg>
+                        <!-- Pending Tasks Count and Label -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-yellow-600">5</h3>
+                            <p class="text-gray-700">Pending Tasks</p>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-blue-100 to-blue-300 hover:from-blue-300 hover:to-blue-500 rounded-lg shadow-lg p-6 transform transition duration-300 ease-in-out hover:scale-105">
+                        <a href="#" data-url="{% url 'user_purchases' %}"
+                       class="load-content">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-700 font-medium">Books Purchased</p>
+                                <p class="text-2xl font-bold text-blue-800">{{ books_count }}</p>
+                            </div>
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                        </div>
+                    </a>
+                    </div>
+                
+                    <div class="bg-gradient-to-br from-red-100 to-red-300 hover:from-red-300 hover:to-red-500 rounded-lg shadow-lg p-6 transform transition duration-300 ease-in-out hover:scale-105">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-700 font-medium">Wishlist Items</p>
+                                <p class="text-2xl font-bold text-red-800">{{ wishlist_count }}</p>
+                            </div>
+                            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                
+                    <div class="bg-gradient-to-br from-green-100 to-green-300 hover:from-green-300 hover:to-green-500 rounded-lg shadow-lg p-6 transform transition duration-300 ease-in-out hover:scale-105">
+                    <a href="#" data-url="{% url 'user_notifications' %}"
+                       class="load-content">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-700 font-medium">Notifications</p>
+                                <p class="text-2xl font-bold text-green-800">{{ notification_count }}</p>
+                            </div>
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+            
+                <!-- Recent Activity -->
+                {% comment %} <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4">Recent Activity</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between py-2 border-b">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold">Purchased "The Great Gatsby"</p>
+                                    <p class="text-sm text-gray-600">2 days ago</p>
+                                </div>
+                            </div>
+                            <span class="text-blue-600">$19.99</span>
+                        </div>
+            
+                        <div class="flex items-center justify-between py-2 border-b">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold">Completed "1984"</p>
+                                    <p class="text-sm text-gray-600">5 days ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+         
+
+                <!-- Quick Action Buttons -->
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center">
+                    <a href="#" data-url="{% url 'edit_profile' %}"
+                class="load-content flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12h4l1 1v5a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5l1-1h4l1 1h4l1 1v4M9 14l2 2 4-4"/>
+                    </svg>
+                    Edit Profile
+                </a>
+
+                <!-- View Your Orders Button -->
+                <a href="#" data-url="{% url 'user_orders' %}"
+                class="load-content flex items-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 8h14M5 16h14"/>
+                    </svg>
+                    View Your Orders
+                </a>
+
+                <!-- Settings Button -->
+                <a href="#"
+                class="flex items-center bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3M6 6l3 3"/>
+                    </svg>
+                    Settings
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    {% comment %} document.addEventListener('DOMContentLoaded', function () {
+        // Function to handle click events on pagination and load new content
+        function setupAjaxPagination() {
+            const paginationLinks = document.querySelectorAll('.load-content');
+
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('data-url');
+                    fetchContent(url);
+                });
+            });
+        }
+
+        function fetchContent(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('dashboard-content').innerHTML = data;
+                    setupAjaxPagination();  // Reinitialize after new content is loaded
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Initial load setup for pagination
+        setupAjaxPagination();
+    }); {% endcomment %}
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to handle click events on pagination and load new content
+        function setupAjaxPagination() {
+            const paginationLinks = document.querySelectorAll('.load-content');
+    
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('data-url');
+                    fetchContent(url);
+                });
+            });
+        }
+    
+        function fetchContent(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('dashboard-content').innerHTML = data;
+    
+                    // Reinitialize pagination and form submission after new content is loaded
+                    setupAjaxPagination();
+                    setupFormSubmission(); // Call form setup function after loading new content
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    
+        // Initial load setup for pagination
+        setupAjaxPagination();
+    });
+</script>
+
+
+{% endblock %}
+    
+
+
+
+

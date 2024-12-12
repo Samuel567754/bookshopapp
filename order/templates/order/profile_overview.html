@@ -1,0 +1,11 @@
+<div class="w-full px-8 py-10 bg-white shadow-lg rounded-lg h-screen">
+    <h1 class="text-3xl font-bold text-blue-600">Welcome, {{ user.username }}!</h1>
+    <p class="text-lg text-gray-700 mt-4">You have written <span class="font-semibold">{{ post_count }}</span> {{ post_count|pluralize:"post,posts" }}.</p>
+
+    <!-- Additional user information can go here -->
+    <div class="mt-8">
+        <p class="text-gray-700">Email: {{ user.email }}</p>
+        <p class="text-gray-700">Joined: {{ user.date_joined|date:"M d, Y" }}</p>
+        <!-- Add other relevant profile details -->
+    </div>
+</div>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt - {{ receipt.transaction_id }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            border-bottom: 2px solid #e2e2e2;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #34495e;
+            margin-top: 0;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        strong {
+            color: #2c3e50;
+        }
+
+        .receipt-details {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .receipt-details p {
+            margin-bottom: 10px;
+        }
+
+        .receipt-details ul {
+            padding-left: 20px;
+        }
+
+        .receipt-details li {
+            list-style-type: disc;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Receipt for Order {{ receipt.order.id }}</h1>
+
+        <div class="receipt-details">
+            <p><strong>Transaction ID:</strong> {{ receipt.transaction_id }}</p>
+            <p><strong>User:</strong> {{ receipt.user.username }}</p>
+            <p><strong>Payment Method:</strong> {{ receipt.payment_method }}</p>
+            <p><strong>Total Amount:</strong> ${{ receipt.amount }}</p>
+            
+            <h2>Book Titles:</h2>
+            <ul>
+                {% for title in receipt.get_book_titles %}
+                    <li>{{ title }}</li>
+                {% endfor %}
+            </ul>
+
+            <p><strong>Date Issued:</strong> {{ receipt.issued_at }}</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; {{ current_year }} Your Bookshop. All rights reserved.</p>
+            <p><a href="#">Contact Support</a> | <a href="#">Privacy Policy</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

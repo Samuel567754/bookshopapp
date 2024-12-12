@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Services - My bookshop{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="mt-10 h-64 flex justify-center items-center relative">
+    <div class="inset-0 bg-black opacity-60 absolute z-10"></div>
+    <div class="aos text-center relative z-20" data-aos="flip-left"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="2000">
+     <h2 class="mb-2 text-3xl lg:text-4xl text-white font-bold leading-tight">Our Services</h2>
+        <p class="text-lg text-white mx-auto">what we can offer</p>
+    </div>
+    <div class="inset-0 absolute z-0">  
+    <img src="{% static 'images/shopbg/shopbg (57).jpg' %}" class="w-full h-full object-fill object-center">
+    </div> 
+</div>
+
+<div class="container mx-auto px-4 py-6">
+
+    {% include 'partials/_services.html' %}
+
+
+</div>
+{% endblock %}

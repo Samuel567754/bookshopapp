@@ -1,0 +1,71 @@
+<div class="container mx-auto py-10 px-6">
+    <h1 class="text-3xl font-bold text-center text-gray-900 mb-10">Your Receipt History</h1>
+    
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {% for receipt in receipts %}
+            <div class="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition-shadow duration-300 relative overflow-hidden">
+                <!-- Decorative background shape -->
+                <div class="absolute top-0 right-0 h-full w-1/2 bg-gradient-to-b from-blue-50 to-blue-200 opacity-20 rounded-bl-full"></div>
+                
+                <!-- Header Section -->
+                <div class="flex items-center space-x-3 mb-4">
+                    <!-- SVG Icon for Order ID -->
+                    <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v6h6M21 21v-6h-6m-9-3h6a9 9 0 011.87 17.39L3 3"></path>
+                    </svg>
+                    <h2 class="text-lg font-semibold text-blue-600">Order ID: {{ receipt.order.id }}</h2>
+                </div>
+                
+                <!-- Receipt Details -->
+                <div class="text-gray-800 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.5 4.5M10 10l4.5 4.5m3-3.5A6.5 6.5 0 0011 7.5m5.5-1A6.5 6.5 0 0117 9m-8 8v3"></path>
+                        </svg>
+                        <span>Transaction ID: {{ receipt.transaction_id }}</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"></path>
+                        </svg>
+                        <span>Amount Paid: ${{ receipt.amount }}</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 0l3 3m-6 0h6"></path>
+                        </svg>
+                        <span>Payment Method: {{ receipt.payment_method }}</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4a2 2 0 002 2h3M5 7v11a2 2 0 002 2h10a2 2 0 002-2V10M9 21h6M12 21v-7"></path>
+                        </svg>
+                        <span>Issued At: {{ receipt.issued_at|date:"Y-m-d H:i" }}</span>
+                    </div>
+                </div>
+                
+                <!-- Books Section -->
+                <div class="mt-6">
+                    <h3 class="text-md font-medium text-gray-800">Books Purchased:</h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-2 mt-1 space-y-1">
+                        {% for title in receipt.get_book_titles %}
+                            <li>{{ title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Download Button -->
+                <div class="mt-6 text-right">
+                    <a href="{% url 'download_receipt' receipt.id %}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-200">
+                        <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v4h16v-4M4 16h16M8 16V4m8 0v12"></path>
+                        </svg>
+                        Download Receipt
+                    </a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-gray-700 text-center col-span-full">You have no receipts yet.</p>
+        {% endfor %}
+    </div>
+</div>

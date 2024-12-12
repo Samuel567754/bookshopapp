@@ -1,0 +1,49 @@
+<div class="max-w-4xl mx-auto px-8 py-10 bg-white shadow-2xl rounded-xl h-screen overflow-auto sm:px-12 sm:py-14">
+    <h1 class="text-4xl font-extrabold text-indigo-600 text-center mb-6">Welcome, {{ user.username }}!</h1>
+    <p class="text-xl text-gray-600 text-center mb-8">
+        You have written <span class="font-semibold text-indigo-700">{{ book_count }}</span> {{ post_count|pluralize:"post,posts" }}.
+    </p>
+
+    <!-- Additional user information -->
+    <div class="bg-gray-50 p-6 rounded-lg space-y-4">
+        <div class="flex items-center space-x-3">
+            <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-8-3a2 2 0 100 4 2 2 0 000-4zm4 8H8v-1a3 3 0 013-3h2a3 3 0 013 3v1z" />
+            </svg>
+            <p class="text-gray-700">User Name: {{ user.username }}</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a1 1 0 000 2h12a1 1 0 100-2H4zM4 7a1 1 0 000 2h12a1 1 0 100-2H4zm0 4a1 1 0 000 2h12a1 1 0 100-2H4zm0 4a1 1 0 000 2h12a1 1 0 100-2H4z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-gray-700">First Name: {{ user.first_name }}</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M2 3a1 1 0 011-1h14a1 1 0 011 1v12a1 1 0 01-1 1H9l-3 3v-3H3a1 1 0 01-1-1V3z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-gray-700">Last Name: {{ user.last_name }}</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.25 4.5A2.25 2.25 0 004.5 2.25h11.25A2.25 2.25 0 0118 4.5v11.25a2.25 2.25 0 01-2.25 2.25H4.5A2.25 2.25 0 012.25 15.75V4.5zM3.25 6.25A1.25 1.25 0 004.5 5h11.25a1.25 1.25 0 011.25 1.25v1.5a1.25 1.25 0 01-1.25 1.25H4.5A1.25 1.25 0 013.25 7.75V6.25zm1.5 8.25H16v-2H4.75v2zm-1.5-4h13.5v-2H3.25v2z" />
+            </svg>
+            <p class="text-gray-700">Email: {{ user.email }}</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 4a2 2 0 114 0v6a2 2 0 11-4 0V4zM6 10h4a1 1 0 100-2H6a1 1 0 000 2zm4-6H6a1 1 0 100 2h4a1 1 0 100-2zm-4 8a2 2 0 11-4 0 2 2 0 014 0z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-gray-700">Joined: {{ user.date_joined|date:"M d, Y" }}</p>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-center mt-10">
+        <a href="" data-url="{% url 'edit_profile' %}" class="load-content inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-200 shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white mr-3" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" d="M12 2a6 6 0 100 12 6 6 0 000-12zm0 10a4 4 0 110-8 4 4 0 010 8zm-6 8a8 8 0 0116 0H6z" clip-rule="evenodd" />
+            </svg>
+            Edit Profile
+        </a>
+    </div>
+</div>

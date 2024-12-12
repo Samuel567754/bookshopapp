@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Bookstore{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <!-- Other head elements -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM4yC+I2W1B1A2ZC0UukS8ik9ASk+6pbq9Z0EG"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <!-- Include SweetAlert CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body class="bg-gray-50">
+
+  {% include 'partials/_nav.html' %}
+
+   
+
+  
+  < class="container mx-auto mt-6">
+    <!-- Display general messages with SweetAlert -->
+    {% if messages %}
+        {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: "{{ message.tags }}",  // Success, error, info, etc.
+                title: "{{ message.level_tag }}",  // The level of the message
+                text: "{{ message }}",  // The message itself
+                timer: 3000,
+                showConfirmButton: true,  // Show the OK button
+                confirmButtonText: 'OK',  // Text for the OK button
+            });
+        </script>
+        {% endfor %}
+    {% endif %}
+
+   
+    {% for notification in notifications %}
+    <script>
+        // Play notification sound
+        //var notificationSound = new Audio('{% static "sounds/mixkit-software-interface-start-2574.//wav" %}');
+        //notificationSound.play();
+    
+        // Display toast notification after sound delay
+        setTimeout(function() {
+            Swal.fire({
+                toast: true,
+                icon: 'info',
+                title: "You have a new notification",
+                position: 'bottom-right',
+                timer: 5000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                customClass: {
+                    toast: 'bg-blue-500 text-white',
+                }
+            });
+    
+            // Mark notification as shown
+            fetch(`/notifications/mark_as_shown/{{ notification.id }}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),  // Ensure CSRF token
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error(data.error || 'Failed to mark as shown');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }, 1000); // Delay for sound
+    </script>
+    {% endfor %}
+</div>
+
+
+
+
+
+      {% comment %} {% endfor %} {% endif %} {% if messages %} {% for message in messages %}
+      <script>
+        Swal.fire({
+          icon: "{{ message.tags }}", // For success, error, info, etc.
+          title: "{{ message.level_tag }}", // The level of the message
+          text: "{{ message }}", // The message itself
+          toast: true, // Make it a toast notification
+          position: "top-end", // Position of the toast (e.g., 'top-end', 'bottom-end')
+          timer: 7000, // Duration in milliseconds (3 seconds)
+          timerProgressBar: true, // Show a progress bar on the toast
+          showConfirmButton: false, // Hide the confirmation button
+        });
+      </script>
+      {% endcomment %}
+    </div>
+
+    <!-- Content -->
+    <main>{% block content %} {% endblock %}</main>
+
+
+
+    {% include 'partials/_footer.html' %}
+
+   
+    <!-- Include SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+  </body>
+</html>
+
+

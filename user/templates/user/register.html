@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block title %}register - My Website{% endblock %}
+
+{% block content %}
+{% comment %} <div class="container mx-auto px-4 py-10 flex justify-center">
+    <div class="max-w-lg w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="px-8 py-10">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Create Your Account</h2>
+            <p class="text-gray-600 text-center mb-8">Sign up to access all features</p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="space-y-6">
+                    {{ form.as_p }}  <!-- Renders form fields neatly with spacing -->
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg mt-8 focus:outline-none focus:shadow-outline transition duration-300">
+                    Sign Up
+                </button>
+            </form>
+        </div>
+        <div class="bg-gray-100 px-8 py-4">
+            <p class="text-center text-gray-600">
+                Already have an account? 
+                <a href="{% url 'login' %}" class="text-blue-500 hover:text-blue-700 font-semibold transition duration-200">Login</a>
+            </p>
+        </div>
+    </div>
+</div>  {% endcomment %}
+
+{% comment %} working {% endcomment %}
+{% comment %} <div class="container mx-auto px-4 py-10 flex justify-center">
+    <div class="max-w-lg w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="px-8 py-10">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Create Your Account</h2>
+            <p class="text-gray-600 text-center mb-8">Sign up to access all features</p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="space-y-6">
+                    <!-- Username field -->
+                    <div>
+                        <label for="id_username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                        <input type="text" name="username" id="id_username" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+
+                    <!-- Email field -->
+                    <div>
+                        <label for="id_email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" name="email" id="id_email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+
+                    <!-- Password field -->
+                    <div>
+                        <label for="id_password1" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <input type="password" name="password1" id="id_password1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+
+                    <!-- Confirm Password field -->
+                    <div>
+                        <label for="id_password2" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
+                        <input type="password" name="password2" id="id_password2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg mt-8 focus:outline-none focus:shadow-outline transition duration-300">
+                    Sign Up
+                </button>
+            </form>
+        </div>
+
+        <!-- Footer: Link to login page -->
+        <div class="bg-gray-100 px-8 py-4">
+            <p class="text-center text-gray-600">
+                Already have an account? 
+                <a href="{% url 'login' %}" class="text-blue-500 hover:text-blue-700 font-semibold transition duration-200">Login</a>
+            </p>
+        </div>
+    </div>
+</div> {% endcomment %}
+
+
+
+<div class="container mx-auto px-4 py-10 flex justify-center">
+    <div class="max-w-lg w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="px-8 py-10">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Create Your Account</h2>
+            <p class="text-gray-600 text-center mb-8">Sign up to access all features</p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="space-y-6">
+                    <!-- Username field -->
+                    <div>
+                        <label for="id_username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                        <input type="text" name="username" id="id_username" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        {% if form.username.errors %}
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ form.username.errors.as_text }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                     <!-- first name field -->
+                     <div>
+                        <label for="id_first_name" class="block text-gray-700 text-sm font-bold mb-2">First name</label>
+                        <input type="text" name="first_name" id="id_first_name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        {% if form.first_name.errors %}
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ form.first_name.errors.as_text }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                     <!-- Last name field -->
+                     <div>
+                        <label for="id_last_name" class="block text-gray-700 text-sm font-bold mb-2">Last name</label>
+                        <input type="text" name="last_name" id="id_last_name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        {% if form.last_name.errors %}
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ form.last_name.errors.as_text }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Email field -->
+                    <div>
+                        <label for="id_email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" name="email" id="id_email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        {% if form.email.errors %}
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ form.email.errors.as_text }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password field -->
+                    <div>
+                        <label for="id_password1" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <div class="relative">
+                        <input type="password" name="password1" id="id_password1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3" onclick="togglePasswordVisibility('id_password1')">
+                            <svg id="eye-icon-1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12c0 4.418 5.373 8 12 8s12-3.582 12-8-5.373-8-12-8S3 7.582 3 12z" /></svg>
+                        </button>
+                    </div>
+                        {% if form.password1.errors %}
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ form.password1.errors.as_text }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Confirm Password field -->
+                    <div>
+                        <label for="id_password2" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
+
+                        <div class="relative">
+                        <input type="password" name="password2" id="id_password2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3" onclick="togglePasswordVisibility('id_password2')">
+                            <svg id="eye-icon-2" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12c0 4.418 5.373 8 12 8s12-3.582 12-8-5.373-8-12-8S3 7.582 3 12z" /></svg>
+                        </button>
+                    </div>
+                        {% if form.password2.errors %}
+                            <div class="text-red-500 text-sm mt-1">
+                                {{ form.password2.errors.as_text }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg mt-8 focus:outline-none focus:shadow-outline transition duration-300">
+                    Sign Up
+                </button>
+            </form>
+        </div>
+
+        <!-- Footer: Link to login page -->
+        <div class="bg-gray-100 px-8 py-4">
+            <p class="text-center text-gray-600">
+                Already have an account? 
+                <a href="{% url 'login' %}" class="text-blue-500 hover:text-blue-700 font-semibold transition duration-200">Login</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePasswordVisibility(inputId) {
+        const inputField = document.getElementById(inputId);
+        const eyeIcon = document.getElementById('eye-icon-' + (inputId === 'id_password1' ? '1' : '2'));
+
+        if (inputField.type === "password") {
+            inputField.type = "text";
+            eyeIcon.setAttribute("stroke", "currentColor");
+            eyeIcon.innerHTML = "<path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13.875 18.825c-3.798 0-6.969-2.196-8.25-5.475-.33-.773-.33-1.52 0-2.293 1.281-3.279 4.452-5.475 8.25-5.475 3.798 0 6.969 2.196 8.25 5.475.33.773.33 1.52 0 2.293-1.281 3.279-4.452 5.475-8.25 5.475z'/><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 12h.01'/><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 12h.01'/><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h.01'/>";
+        } else {
+            inputField.type = "password";
+            eyeIcon.setAttribute("stroke", "none");
+            eyeIcon.innerHTML = "<path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12c0 4.418 5.373 8 12 8s12-3.582 12-8-5.373-8-12-8S3 7.582 3 12z'/>";
+        }
+    }
+</script>
+{% endblock %}
+    
+
+
+
+
+
+
+
+
+
+

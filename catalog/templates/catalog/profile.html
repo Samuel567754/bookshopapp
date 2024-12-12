@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard Profile - My Website{% endblock %}
+
+
+{% block content %}
+
+<div class="container mx-auto px-4 py-5">
+    <div class="flex flex-col md:flex-row justify-between items-start">
+        <!-- Sidebar for Navigation -->
+        <aside class="w-full md:w-1/4 bg-gray-800 text-white rounded-lg shadow-lg p-4 md:min-h-screen">
+            <h3 class="text-xl font-semibold mb-10">Dashboard</h3>
+            <ul class="space-y-4">
+                <li>
+                    <a href="#" data-url="{% url 'profile_overview' %}"
+                    class="load-content hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">Profile Overview</a>
+                </li>
+                <li>
+                    <a href="#" data-url="{% url 'edit_profile' %}"
+                       class="load-content hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">Edit Profile</a>
+                </li>
+                <li>
+                    <a href="#" data-url="{% url 'user_posts' %}" 
+                       class="load-content hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">Your Posts</a>
+                </li>
+                <li>
+                    <a href="" 
+                       class="hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">Settings</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}" 
+                       class="hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">Logout</a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content: Profile Info -->
+        <div id="dashboard-content" class="w-full md:w-3/4 bg-white shadow-lg rounded-lg overflow-hidden md:min-h-screen">
+
+            <div class="px-8 py-10">
+                <!-- Welcome Message -->
+                <div class="mb-8 animate-fade-in">
+                    <h1 class="text-4xl font-bold text-blue-600 text-center">Welcome, {{ user.username }}!</h1>
+                    <p class="text-xl text-gray-700 text-center mt-4">It's great to have you back. Here's your latest activity and profile info.</p>
+                </div>
+                <!-- Stats Section (adjust grid for small screens) -->
+               
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <a href="" data-url="{% url 'user_posts' %}" class="load-content">
+                    <div class="bg-blue-100 p-6 rounded-lg shadow-md text-center hover:bg-blue-200 transition duration-300 ease-in-out transform hover:scale-105">
+                        <h3 class="text-2xl font-bold text-blue-600">{{post_count}}</h3>
+                        <p class="text-gray-700">Posts</p>
+                    </div>
+                </a>
+                    <div class="bg-green-100 p-6 rounded-lg shadow-md text-center hover:bg-green-200 transition duration-300 ease-in-out transform hover:scale-105">
+                        <h3 class="text-2xl font-bold text-green-600">200</h3>
+                        <p class="text-gray-700">Followers</p>
+                    </div>
+               
+                    <div class="bg-yellow-100 p-6 rounded-lg shadow-md text-center hover:bg-yellow-200 transition duration-300 ease-in-out transform hover:scale-105">
+                        <h3 class="text-2xl font-bold text-yellow-600">5</h3>
+                        <p class="text-gray-700">Pending Tasks</p>
+                    </div>
+                </div>
+         
+
+                <!-- Quick Action Buttons -->
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center">
+                    <a href="#" data-url="{% url 'edit_profile' %}"
+                       class="load-content bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        Edit Profile
+                    </a>
+                    <a href="" data-url="{% url 'user_posts' %}" 
+                       class="load-content bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        View Your Posts
+                    </a>
+                    <a href="" 
+                       class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to handle click events on pagination and load new content
+        function setupAjaxPagination() {
+            const paginationLinks = document.querySelectorAll('.load-content');
+
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('data-url');
+                    fetchContent(url);
+                });
+            });
+        }
+
+        function fetchContent(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('dashboard-content').innerHTML = data;
+                    setupAjaxPagination();  // Reinitialize after new content is loaded
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Initial load setup for pagination
+        setupAjaxPagination();
+    });
+</script>
+
+
+{% endblock %}
+    
+
+
+
+

@@ -1,0 +1,54 @@
+<!-- Contact form -->
+<div class="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12 bg-white shadow-lg rounded-lg">
+    <h3 class="text-2xl font-bold text-gray-900 text-center">Send Us a Message</h3>
+    <form id="contact-form-support" action="{% url 'contact_support' %}" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+        {% csrf_token %}
+        <div>
+            <label for="firstname" class="block text-sm font-medium text-gray-900">First Name</label>
+            <div class="mt-1">
+                <input type="text" name="firstname" id="firstname" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md transition duration-200 ease-in-out" required>
+                <div id="firstname-error" class="text-red-600 text-sm"></div>
+            </div>
+        </div>
+        <div>
+            <label for="lastname" class="block text-sm font-medium text-gray-900">Last Name</label>
+            <div class="mt-1">
+                <input type="text" name="lastname" id="lastname" autocomplete="family-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md transition duration-200 ease-in-out" required>
+                <div id="lastname-error" class="text-red-600 text-sm"></div>
+            </div>
+        </div>
+        <div>
+            <label for="phone" class="block text-sm font-medium text-gray-900">Phone</label>
+            <div class="mt-1">
+                <input type="text" name="phone" id="phone" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md transition duration-200 ease-in-out" required>
+                <div id="phone-error" class="text-red-600 text-sm"></div>
+            </div>
+        </div>
+        <div class="sm:col-span-2">
+            <label for="email" class="block text-sm font-medium text-gray-900">Email</label>
+            <div class="mt-1">
+                <input id="email" name="email" type="email" autocomplete="email" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md transition duration-200 ease-in-out" required>
+                <div id="email-error" class="text-red-600 text-sm"></div>
+            </div>
+        </div>
+        <div class="sm:col-span-2">
+            <label for="message" class="block text-sm font-medium text-gray-900">Message</label>
+            <div class="mt-1">
+                <textarea id="message" name="message" rows="4" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md transition duration-200 ease-in-out" required></textarea>
+                <div id="message-error" class="text-red-600 text-sm"></div>
+            </div>
+        </div>
+        <div class="sm:col-span-2">
+            <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-md text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200 ease-in-out">
+                <span id="button-txt">Send Message</span>
+                <span id="loading-spinning" class="hidden ml-2 flex items-center">
+                    <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                    Sending Message...
+                </span>
+            </button>
+        </div>
+    </form>
+</div>
