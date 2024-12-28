@@ -7,9 +7,9 @@ __pycache__/
 # Django stuff:
 *.log
 *.sqlite3
-db.sqlite3
-media/
-static/
+# db.sqlite3
+# media/
+# static/
 
 # Virtual environment
 venv/
@@ -24,7 +24,7 @@ env/
 Thumbs.db  # Windows
 
 # Node.js files:
-node_modules/
+# node_modules/
 npm-debug.log
 yarn-error.log
 dist/
