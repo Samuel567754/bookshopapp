@@ -444,7 +444,6 @@ def profile_overview(request):
 #     return render(request, 'user/register.html', {'form': form})
 
 
-@login_required
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -727,7 +726,7 @@ def user_logout(request):
 
     logout(request)
     messages.success(request, 'You have been logged out.')
-    return redirect('login')
+    return redirect('catalog:book_list')
 
 
 

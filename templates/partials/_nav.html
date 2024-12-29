@@ -9,7 +9,7 @@
     >
       <a href="{% url 'catalog:book_list' %}" class="flex items-center space-x-3">
         <img
-          src="{% static 'images/WebLaravelFiles/webasset (4).png' %}"
+          src="{% static 'images/webasset (4).png' %}"
           class="h-10"
           alt="book image"
         />
@@ -264,7 +264,7 @@
         </div>
         {% else %}
         <!-- Auth Links for Unauthenticated Users -->
-        <div class="space-x-2">
+        {% comment %} <div class="space-x-2">
           <a
             href="{% url 'login' %}"
             class="inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-indigo-600 hover:text-white transition duration-200"
@@ -275,7 +275,7 @@
             class="inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-indigo-600 hover:text-white transition duration-200"
             >Register</a
           >
-        </div>
+        </div> {% endcomment %}
         {% endif %}
 
         <!-- Responsive Menu Button -->
@@ -382,7 +382,52 @@
             Contact
           </a>
         </li>
-        
+        {% if user.is_authenticated %}
+         <!-- Authenticated User Links -->
+    <li>
+      <a
+          href="{% url 'profile' %}"
+          class="flex items-center py-2 px-4 rounded-2xl transition-colors duration-300 
+              {% if request.resolver_match.url_name == 'profile' %}text-blue-600 font-semibold bg-blue-200{% else %}text-gray-700 bg-transparent hover:bg-gray-100{% endif %}">
+          <!-- Dashboard Icon -->
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm-1 11H7v-2h2v2zm2-6H7v4h2V9h2V7z" />
+          </svg>
+          Dashboard
+      </a>
+  </li>
+        {% else %}
+
+        <!-- Unauthenticated User Links -->
+        <li>
+          <a
+              href="{% url 'login' %}"
+              class="flex items-center py-2 px-4 rounded-2xl transition-colors duration-300 
+                  {% if request.resolver_match.url_name == 'login' %}text-blue-600 font-semibold bg-blue-200{% else %}text-gray-700 bg-transparent hover:bg-gray-100{% endif %}"
+          >
+              <!-- Login Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2m16-10a4 4 0 11-8 0 4 4 0 018 0zm4 14h-6m3-3v6" />
+              </svg>
+              Login
+          </a>
+      </li>
+  
+      <li>
+          <a
+              href="{% url 'register' %}"
+              class="flex items-center py-2 px-4 rounded-2xl transition-colors duration-300 
+                  {% if request.resolver_match.url_name == 'register' %}text-blue-600 font-semibold bg-blue-200{% else %}text-gray-700 bg-transparent hover:bg-gray-100{% endif %}"
+          >
+              <!-- Register Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2m16-10a4 4 0 11-8 0 4 4 0 018 0zm12 4h-6m3-3v6" />
+              </svg>
+              Register
+          </a>
+      </li>
+       
+        {% endif %}
         
         </ul>
       </div>

@@ -29,7 +29,7 @@
   <div class="mx-auto container px-4 md:px-6 2xl:px-0 py-12 flex justify-center items-center">
     <div class="flex flex-col justify-start items-start space-y-8">
         <!-- Breadcrumb -->
-        <div class="space-y-4 bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-lg">
+        {% comment %} <div class="space-y-4 bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-lg">
             <div class="flex items-center space-x-2 text-sm">
                 <a href="{% url 'catalog:book_list' %}" class="text-gray-600 dark:text-gray-400 hover:text-blue-500 transition duration-200">
                     <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -48,10 +48,36 @@
                     {{ wishlist_count }} items
                 </p>
             </div>
-        </div>
+        </div> {% endcomment %}
+
+           <!-- Breadcrumb Section -->
+           <div class="space-y-6 bg-white dark:bg-gray-900 lg:p-6 px-2 py-3 rounded-lg shadow-xl">
+            <!-- Breadcrumb -->
+            <div class="flex items-center space-x-3 text-sm">
+                <a href="{% url 'catalog:book_list' %}" class="text-gray-600 dark:text-gray-400 hover:text-blue-500 transition duration-300 ease-in-out flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 3H3v7h7V3zm5 0h-4v4h4V3zm0 6h-4v4h4V9zm0 6h-4v2h4v-2zm-5 2H3v-4h7v4z"></path>
+                    </svg>
+                    Home
+                </a>
+            </div>
+
+            <!-- Title Section -->
+            <div class="mt-4">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-800 dark:text-white leading-snug">
+                    Favourites
+                </h1>
+            </div>
+
+            <!-- Wishlist Count -->
+            <div>
+                <p class="text-base md:text-lg text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 py-2 px-4 rounded-md font-semibold shadow-sm">
+                    {{ wishlist_count }} items
+                </p>
+            </div>
 
         <!-- Wishlist Items -->
-        <main class="max-w-7xl mx-auto px-4 py-8 w-full">
+        <main class="max-w-7xl mx-auto px-0 py-2 lg:px-4 lg:py-8 w-full">
             <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center md:text-left">My Wishlist</h1>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
