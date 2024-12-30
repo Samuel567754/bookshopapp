@@ -163,9 +163,9 @@
             {% endif %}           
         </div>
           <!-- X icon for removing notification -->
-          <form id="delete-notification-form-{{ notification.id }}" action="{% url 'notifications:delete_notification' notification.id %}" method="POST" class="absolute top-2 right-2">
+          <form id="delete-notification-form-{{ notification.id }}" action="{% url 'notifications:delete_notification' notification.id %}" method="POST" class="absolute top-2 right-6">
             {% csrf_token %}
-            <button type="button" onclick="removeNotification({{ notification.id }})" class="text-gray-400 hover:text-gray-600">
+            <button type="button" onclick="removeNotification({{ notification.id }})" class="text-red-400 hover:text-gray-600">
                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -438,6 +438,29 @@
 
  <!-- JavaScript to Toggle Dropdown and Close When Clicking Outside -->
 <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("navbar-user");
+
+  // Close the menu if clicking outside the menu area
+  document.addEventListener("click", function(event) {
+    if (
+      !mobileMenu.contains(event.target) && // If the click is not inside the mobile menu
+      !menuToggle.contains(event.target)    // If the click is not inside the toggle button
+    ) {
+      mobileMenu.classList.add("hidden");   // Hide the menu
+    }
+  });
+  
+    // Close the menu if any link inside the menu is clicked
+    const menuLinks = mobileMenu.querySelectorAll("a");
+    menuLinks.forEach(function (link) {
+      link.addEventListener("click", function () {
+        mobileMenu.classList.add("hidden");
+      });
+    });
+  });
+
 
 
 function removeNotification(notificationId) {

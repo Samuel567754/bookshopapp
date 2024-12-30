@@ -20,11 +20,64 @@
     </div> 
 </div>
 
-<div class="container mx-auto px-4 py-1">
+<div class="container mx-auto md:px-1 md:py-1 lg:px-4 lg:py-1">
     <div class="flex flex-col md:flex-row justify-between items-start">
+        
+           <!-- Hamburger Menu Button -->
+            {% comment %} <button 
+            id="hamburger-menu" 
+            class="md:hidden p-4 focus:outline-none" 
+            aria-label="Toggle Sidebar"
+        >
+            <!-- Hamburger Icon -->
+            <svg 
+                class="w-6 h-6 text-gray-800" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+            >
+                <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    d="M4 6h16M4 12h16m-7 6h7"
+                />
+            </svg>
+        </button> {% endcomment %}
+
+        <!-- Hamburger Menu Button -->
+        <button 
+        id="hamburger-menu" 
+        class="md:hidden m-4 p-2 focus:outline-none bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-full shadow-2xl transform transition duration-300 ease-in-out hover:scale-105 hover:rotate-45 hover:shadow-lg active:scale-95 active:rotate-90"
+        aria-label="Toggle Sidebar"
+        >
+        <!-- Hamburger Icon -->
+        <svg 
+            class="w-8 h-8 text-white transition-all duration-300 ease-in-out transform group-hover:rotate-45"
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M4 6h16M4 12h16m-7 6h7"
+            />
+        </svg>
+        </button>
+
+
+
         <!-- Sidebar for Navigation -->
-        <aside class="w-full md:w-1/5 bg-gray-800 text-white rounded-lg shadow-lg p-6 md:min-h-screen">
-            <a href="{% url 'profile' %}">
+        {% comment %} <aside id="sidebar" 
+        class="hidden md:block w-full md:w-1/5 bg-gray-800 text-white rounded-lg shadow-lg p-6 md:min-h-screen"> {% endcomment %}
+        <aside 
+        id="sidebar" 
+        class="hidden md:block overflow-auto w-full md:w-1/5 bg-gray-800 text-white rounded-lg shadow-lg p-6 md:min-h-screen transition-[max-height] duration-300 ease-in-out z-50" 
+        style="max-height: 0;">
+            <a href="{% url 'profile' %}"  class="sidebar-link">
             <div class="flex items-center space-x-4 my-8">
                 <svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5A2.5 2.5 0 016.5 17H20m-16 2.5A2.5 2.5 0 004 15V4.5A2.5 2.5 0 016.5 2H17a2 2 0 012 2v13a2 2 0 01-2 2H6.5a2.5 2.5 0 01-2.5-2.5zM4 15h16"/>
@@ -36,7 +89,7 @@
             <ul class="space-y-12">
                 <li>
                     <a href="#" data-url="{% url 'profile_overview' %}"
-                       class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                       class="load-content sidebar-link flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                         <!-- Profile Icon -->
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A10.002 10.002 0 1112 22V20c-2.21 0-4-1.79-4-4H7c0 2.21 1.79 4 4 4h4c2.21 0 4-1.79 4-4h-1c0 2.21-1.79 4-4 4v2a10.002 10.002 0 01-6.879-4.196z" />
@@ -46,7 +99,7 @@
                 </li>
                 <li>
                     <a href="#" data-url="{% url 'user_receipts' %}"
-                       class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                       class="load-content sidebar-link flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 2h10a2 2 0 012 2v16a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h8M8 10h8M8 14h4" />
@@ -56,7 +109,7 @@
                 </li>
                 <li>
                     <a href="#" data-url="{% url 'user_purchases' %}"
-                       class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                       class="load-content sidebar-link flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                         <!-- Posts Icon -->
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2v-6a2 2 0 00-2-2zM5 9V7a2 2 0 012-2h4M11 5H7m0 0V3m10 14h-4m0 0v2m0-2h4" />
@@ -66,7 +119,7 @@
                 </li>
                 <li>
                     <a href="#" data-url="{% url 'contact_support' %}"
-                    class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                    class="load-content sidebar-link flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                      <!-- Envelope Icon -->
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l9 5 9-5M3 8l9 5 9-5M3 8v10a2 2 0 002 2h14a2 2 0 002-2V8m-2 0l-9 5-9-5" />
@@ -76,7 +129,7 @@
                 </li>
                 <li>
                 <a href="#" data-url="{% url 'user_downloads' %}"
-                    class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                    class="load-content sidebar-link flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                         <!-- Download Icon -->
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -88,7 +141,7 @@
                 </li>
                 <li>
                     <a href="#" data-url="{% url 'user_orders' %}"
-                        class="load-content flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                        class="load-content sidebar-link flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                             <!-- Envelope Icon -->
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -102,7 +155,7 @@
                     </li>
                 <li>
                     <a href="#" 
-                       class="flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                       class="flex sidebar-link items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                         <!-- Settings Icon -->
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M8 12h4m4-4h4M4 12h4m-4 4h4M4 8h4m12 4h4M8 16h4m0-4H4M4 4h16M8 8h8M8 16h8M8 4h8" />
@@ -112,7 +165,7 @@
                 </li>
                 <li>
                     <a href="{% url 'logout' %}"
-                       class="flex items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                       class="flex sidebar-link items-center gap-2 hover:text-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
                         <!-- Logout Icon -->
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12h6m-6 4h4m-4 4h4m4-6H9m6-6h-6" />
@@ -125,18 +178,31 @@
         
 
         <!-- Main Content: Profile Info -->
-        <div id="dashboard-content" class="w-full md:w-4/5 bg-white shadow-lg rounded-lg overflow-hidden px-8 md:min-h-screen">
+        <div id="dashboard-content" class="w-full md:w-full bg-white shadow-lg rounded-lg overflow-hidden md:px-2 lg:px-8 md:min-h-screen">
 
-            <div class="flex items-center m-8 justify-between mb-8">
-                <h1 class="text-2xl font-bold text-blue-600 text-center">Welcome, {{ user.username }}!</h1>
-                <div class="flex items-center space-x-2">
-                    <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
-                    <div class="text-right">
-                        <p class="font-semibold">John Doe</p>
-                        <p class="text-sm text-gray-600">Premium Member</p>
-                    </div>
+            <div class="flex flex-col md:flex-row items-center justify-between m-8 mb-8 space-y-4 md:space-y-0">
+                <!-- Welcome Text -->
+                <h1 class="text-xl md:text-2xl font-bold text-blue-600 text-center md:text-left">
+                  Welcome, {{ user.username }}!
+                </h1>
+                
+                <!-- Profile Section -->
+                <div class="flex items-center space-x-4">
+                  <!-- Profile Image -->
+                  <img 
+                    src="https://via.placeholder.com/40" 
+                    alt="Profile" 
+                    class="w-12 h-12 rounded-full border-2 border-blue-600"
+                  >
+                  
+                  <!-- Profile Details -->
+                  <div class="text-center md:text-right">
+                    <p class="font-semibold text-gray-800">John Doe</p>
+                    <p class="text-sm text-gray-500">Premium Member</p>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
 
             <div class="px-8 py-10">
                 <!-- Welcome Message -->
@@ -300,8 +366,85 @@
     </div>
 </div>
 
+<!-- JavaScript -->
+{% comment %} <script>
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const sidebar = document.getElementById('sidebar');
+
+    hamburgerMenu.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+    });
+</script> {% endcomment %}
 
 
+<!-- JavaScript -->
+{% comment %} <script>
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const sidebar = document.getElementById('sidebar');
+
+    hamburgerMenu.addEventListener('click', () => {
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full', 'hidden');
+            sidebar.classList.add('translate-x-0');
+        } else {
+            sidebar.classList.remove('translate-x-0');
+            sidebar.classList.add('-translate-x-full', 'hidden');
+        }
+    });
+</script> {% endcomment %}
+
+
+
+<!-- JavaScript -->
+{% comment %} <script>
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const sidebar = document.getElementById('sidebar');
+
+    hamburgerMenu.addEventListener('click', () => {
+        if (sidebar.style.maxHeight === '0px' || sidebar.style.maxHeight === '') {
+            sidebar.style.maxHeight = '100vh'; // Fully expanded
+            sidebar.classList.remove('hidden');
+        } else {
+            sidebar.style.maxHeight = '0px'; // Collapsed
+            setTimeout(() => {
+                sidebar.classList.add('hidden');
+            }, 300); // Delay hiding to allow animation to finish
+        }
+    });
+</script> {% endcomment %}
+
+<!-- JavaScript -->
+<script>
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const sidebar = document.getElementById('sidebar');
+    const links = document.querySelectorAll('.sidebar-link');
+
+    function closeSidebar() {
+        sidebar.style.maxHeight = '0px';
+        setTimeout(() => {
+            sidebar.classList.add('hidden');
+        }, 300); // Delay hiding to allow animation to finish
+    }
+
+    hamburgerMenu.addEventListener('click', () => {
+        if (sidebar.style.maxHeight === '0px' || sidebar.style.maxHeight === '') {
+            sidebar.style.maxHeight = '100vh'; // Fully expanded
+            sidebar.classList.remove('hidden');
+        } else {
+            closeSidebar();
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!sidebar.contains(event.target) && !hamburgerMenu.contains(event.target)) {
+            closeSidebar();
+        }
+    });
+
+    links.forEach(link => {
+        link.addEventListener('click', closeSidebar);
+    });
+</script>
 
 <script>
     {% comment %} document.addEventListener('DOMContentLoaded', function () {
