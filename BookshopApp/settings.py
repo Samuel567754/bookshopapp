@@ -82,15 +82,25 @@ STATICFILES_FINDERS = [
 
 
 
-EMAIL_BACKEND =config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')  # Set to False if MAIL_ENCRYPTION is null
-EMAIL_USE_SSL = config('EMAIL_USE_SSL')  # Ensure SSL is also disabled if encryption is null
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+# EMAIL_BACKEND =config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT')
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS')  # Set to False if MAIL_ENCRYPTION is null
+# EMAIL_USE_SSL = config('EMAIL_USE_SSL')  # Ensure SSL is also disabled if encryption is null
+# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
+
+# Email Backend Configuration
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = config('EMAIL_HOST', default='sandbox.smtp.mailtrap.io')
+EMAIL_PORT = config('EMAIL_PORT', default=2525, cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='893747a81fe786')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='04a35305d16d78')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)  # Adjust as per your requirement
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='hello@example.com')
 
 
 # # this is for gmail
