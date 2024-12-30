@@ -13,7 +13,7 @@
     {% include 'partials/_searchform.html' %}
 
 
-    <div class="text-center my-8">
+    {% comment %} <div class="text-center my-8">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Filter by Categories</h2>
     
         <div class="flex justify-center items-center">
@@ -25,7 +25,54 @@
                 {% endfor %}
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
+
+    {% comment %} <div class="text-center my-12 bg-gray-50 py-12 rounded-lg shadow-lg">
+        <h2 class="text-4xl font-bold mb-10 text-gray-800 tracking-wide">
+            Discover by Categories
+        </h2>
+    
+        <div class="flex justify-center items-center">
+            <div class="flex flex-wrap gap-8 mx-auto">
+                {% for category in categories %}
+                <a href="{% url 'catalog:books_by_category' category.name %}" 
+                   class="relative group">
+                    <span class="absolute inset-0 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-full blur-md opacity-75 group-hover:opacity-100 transition duration-300"></span>
+                    <span class="relative z-10 inline-block bg-white text-gray-800 font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 group-hover:shadow-xl">
+                        {{ category.name }}
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div> {% endcomment %}
+    
+    <div class="text-center my-12 bg-gray-50 py-12 rounded-lg shadow-lg">
+        <h2 class="text-4xl font-bold mb-10 text-gray-800 tracking-wide">
+            Discover by Categories
+        </h2>
+    
+        <div class="flex justify-center items-center">
+            <div class="flex flex-wrap gap-6 mx-auto max-w-4xl">
+                {% for category in categories %}
+                <a href="{% url 'catalog:books_by_category' category.name %}" 
+                   class="relative group transition-transform duration-300 ease-out hover:scale-110">
+                    <!-- Background Glow -->
+                    <span class="absolute inset-0 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"></span>
+                    
+                    <!-- Button Content -->
+                    <span class="relative z-10 inline-block bg-white text-gray-800 font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform group-hover:translate-y-1 group-hover:scale-105 group-hover:shadow-2xl">
+                        {{ category.name }}
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div> 
+
+
+
+
 
 <div class="text-center flex justify-center items-center  my-8">
     <a href="{% url 'recommend_books' %}" class="max-w-md flex items-center px-6 py-3 bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-green-500 hover:to-blue-600 transition-transform transform hover:scale-105">
