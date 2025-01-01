@@ -42,6 +42,7 @@ from reportlab.platypus import Table, TableStyle
 from reportlab.lib.units import inch
 
 from .utils import get_chatgpt_response  # Assuming the utility function is in utils.py
+from django.core.mail import EmailMultiAlternatives
 
 
 
@@ -200,20 +201,36 @@ def download_receipt(request, receipt_id):
 
 
 
-
-
-
-
-
-
-
 class CustomPasswordResetView(PasswordResetView):
     def send_mail(self, subject, message, from_email, to_email, **kwargs):
-        email = EmailMessage(subject, message, from_email, to_email, **kwargs)
-        email.content_subtype = 'html'  # Set content subtype to HTML
+        email = EmailMultiAlternatives(subject, message, from_email, to_email, **kwargs)
+        email.attach_alternative(message, "text/html")
         email.send()
+        
+        
+# class CustomPasswordResetView(PasswordResetView):
+#     def send_mail(self, subject, plain_message, from_email, to_email, **kwargs):
+#         # Render the HTML message
+#         html_message = render_to_string(self.email_template_name, kwargs)
+#         email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
+#         email.attach_alternative(html_message, "text/html")
+#         email.send()
 
 
+# class CustomPasswordResetView(PasswordResetView):
+#     def send_mail(self, subject, plain_message, from_email, to_email, **kwargs):
+#         # Render the HTML message using the custom HTML template
+#         html_message = render_to_string(self.email_template_name, kwargs)
+
+#         # If no plain text message was passed, render a plain text version of the message
+#         if not plain_message:
+#             plain_message = render_to_string(self.subject_template_name, kwargs)
+
+#         # Send both plain text and HTML email
+#         email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
+#         email.attach_alternative(html_message, "text/html")
+#         email.send()
+        
 
 @login_required
 def user_downloads(request):
@@ -462,7 +479,8 @@ def register(request):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
-            email = EmailMessage(mail_subject, message, to=[to_email])
+            email = EmailMultiAlternatives(mail_subject, message, to=[to_email])
+            email.attach_alternative(message, "text/html")
             email.send()
 
             # Notification for successful registration

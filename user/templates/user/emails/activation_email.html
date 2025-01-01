@@ -33,4 +33,75 @@
         </div>
     </div>
 </body>
-</html>
+</html> 
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Your Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4a90e2;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .body {
+            padding: 20px;
+            color: #333333;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4a90e2;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .footer {
+            font-size: 12px;
+            color: #aaaaaa;
+            text-align: center;
+            padding: 20px;
+            background: #f4f4f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Welcome, {{ user.username }}!</h1>
+        </div>
+        <div class="body">
+            <p>Hi {{ user.username }},</p>
+            <p>Thank you for registering with us! Please confirm your email by clicking the button below:</p>
+            <a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}" class="button">Activate Your Account</a>
+            <p>If you didn’t register, please ignore this email.</p>
+        </div>
+        <div class="footer">
+            &copy; {{ current_year }} Your Company. All rights reserved.
+        </div>
+    </div>
+</body>
+</html> {% endcomment %}
+
+
+
