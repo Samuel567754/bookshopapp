@@ -845,8 +845,8 @@ def contact_view(request):
                 admin_email = EmailMessage(
                     subject=f"New Contact Message from {name}",
                     body=email_content,
-                    from_email='hello@example.com',  # Replace with your email
-                    to=['chill123@gmail.com'],  # Replace with actual admin email
+                    from_email='samytest777@gmail.com',  # Replace with your email
+                    to=['samytest777@gmail.com'],  # Replace with actual admin email
                 )
                 admin_email.content_subtype = 'html'  # Send as HTML
                 admin_email.send(fail_silently=False)
@@ -859,7 +859,7 @@ def contact_view(request):
                 auto_response_email = EmailMessage(
                     subject="Thank you for contacting us",
                     body=auto_response_content,
-                    from_email='hello@example.com',
+                    from_email='samytest777@gmail.com',
                     to=[email],
                 )
                 auto_response_email.content_subtype = 'html'
@@ -996,8 +996,8 @@ def contact_support(request):
                 admin_email = EmailMessage(
                     subject=f"New Contact Message from {name}",
                     body=email_content,
-                    from_email='hello@example.com',  # Replace with your email
-                    to=['chill123@gmail.com'],  # Replace with actual admin email
+                    from_email='samytest777@gmail.com',  # Replace with your email
+                    to=['samytest777@gmail.com'],  # Replace with actual admin email
                 )
                 admin_email.content_subtype = 'html'  # Send as HTML
                 admin_email.send(fail_silently=False)
@@ -1010,7 +1010,7 @@ def contact_support(request):
                 auto_response_email = EmailMessage(
                     subject="Thank you for contacting us",
                     body=auto_response_content,
-                    from_email='hello@example.com',
+                    from_email='samytest777@gmail.com',
                     to=[email],
                 )
                 auto_response_email.content_subtype = 'html'

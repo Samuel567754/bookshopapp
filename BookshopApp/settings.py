@@ -93,15 +93,42 @@ STATICFILES_FINDERS = [
 
 
 # Email Backend Configuration
-EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = config('EMAIL_HOST', default='sandbox.smtp.mailtrap.io')
-EMAIL_PORT = config('EMAIL_PORT', default=2525, cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='893747a81fe786')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='04a35305d16d78')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)  # Adjust as per your requirement
-EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='hello@example.com')
+# EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+# EMAIL_HOST = config('EMAIL_HOST', default='sandbox.smtp.mailtrap.io')
+# EMAIL_PORT = config('EMAIL_PORT', default=2525, cast=int)
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='893747a81fe786')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='04a35305d16d78')
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)  # Adjust as per your requirement
+# EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
+# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='hello@example.com')
 
+# EMAIL_BACKEND = config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT', cast=int)
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
+# EMAIL_BACKEND = config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT', cast=int)
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=False)
+# EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=True)
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', cast=int, default=587)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=True)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=False)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='samytest777@gmail.com')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='otofemmjngoviemj')
+
+print(config('EMAIL_HOST_USER'))
+print(config('EMAIL_HOST_PASSWORD'))
 
 # # this is for gmail
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
