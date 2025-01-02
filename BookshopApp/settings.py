@@ -127,8 +127,9 @@ EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=False)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='samytest777@gmail.com')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='otofemmjngoviemj')
 
-print(config('EMAIL_HOST_USER'))
-print(config('EMAIL_HOST_PASSWORD'))
+# print(config('EMAIL_HOST_USER'))
+# print(config('EMAIL_HOST_PASSWORD'))
+# print(config('OPENAI_API_KEY'))
 
 # # this is for gmail
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

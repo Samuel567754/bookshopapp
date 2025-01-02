@@ -43,6 +43,9 @@ from reportlab.lib.units import inch
 
 from .utils import get_chatgpt_response  # Assuming the utility function is in utils.py
 from django.core.mail import EmailMultiAlternatives
+from django.contrib.auth.forms import PasswordResetForm
+from django.utils.translation import gettext_lazy as _
+
 
 
 
@@ -201,35 +204,39 @@ def download_receipt(request, receipt_id):
 
 
 
+# class CustomPasswordResetView(PasswordResetView):
+#     def send_mail(self, subject, message, from_email, to_email, **kwargs):
+#         email = EmailMultiAlternatives(subject, message, from_email, to_email, **kwargs)
+#         email.attach_alternative(message, "text/html")
+#         email.send()
+        
+        
 class CustomPasswordResetView(PasswordResetView):
     def send_mail(self, subject, message, from_email, to_email, **kwargs):
         email = EmailMultiAlternatives(subject, message, from_email, to_email, **kwargs)
         email.attach_alternative(message, "text/html")
         email.send()
-        
-        
-# class CustomPasswordResetView(PasswordResetView):
-#     def send_mail(self, subject, plain_message, from_email, to_email, **kwargs):
-#         # Render the HTML message
-#         html_message = render_to_string(self.email_template_name, kwargs)
-#         email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
-#         email.attach_alternative(html_message, "text/html")
-#         email.send()
 
+    def form_valid(self, form):
+        request = self.request
+        email = form.cleaned_data.get('email')
 
-# class CustomPasswordResetView(PasswordResetView):
-#     def send_mail(self, subject, plain_message, from_email, to_email, **kwargs):
-#         # Render the HTML message using the custom HTML template
-#         html_message = render_to_string(self.email_template_name, kwargs)
+        # Check if the email is registered
+        if not User.objects.filter(email=email).exists():
+            # Add a message if the email is not registered
+            form.add_error('email', _("This email address is not registered."))
+            messages.info(request, _("This email address is not registered."))
+            return self.form_invalid(form)
 
-#         # If no plain text message was passed, render a plain text version of the message
-#         if not plain_message:
-#             plain_message = render_to_string(self.subject_template_name, kwargs)
+        # Add a success message before proceeding
+        messages.success(request, _("Password reset instructions have been sent to your email address."))
+        return super().form_valid(form)
 
-#         # Send both plain text and HTML email
-#         email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
-#         email.attach_alternative(html_message, "text/html")
-#         email.send()
+    def form_invalid(self, form):
+        # Optionally add a message for invalid forms
+        messages.error(self.request, _("Please correct the errors below and try again."))
+        return super().form_invalid(form)   
+
         
 
 @login_required
