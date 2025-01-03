@@ -8,7 +8,7 @@
 
 
 
-<div class="flex justify-center items-center h-screen">
+{% comment %} <div class="flex justify-center items-center h-screen">
 <div class="p-8 bg-gradient-to-br from-gray-100 max-w-2xl to-blue-50 rounded-xl shadow-lg">
     <!-- Heading -->
     <h1 class="text-3xl text-center font-extrabold text-gray-800 mb-6">
@@ -37,8 +37,38 @@
         </p>
     </div>
 </div>
-</div>
+</div> {% endcomment %}
 
+<div class="flex justify-center items-center min-h-screen bg-gradient-to-r from-yellow-200 to-pink-400 p-4">
+    <div class="p-8 bg-white max-w-2xl w-full rounded-2xl shadow-lg">
+        <!-- Heading -->
+        <h1 class="text-4xl text-center font-extrabold text-gray-900 mb-8">
+            📚 Book Recommendations
+        </h1>
+        
+        <!-- Form -->
+        <form method="get" class="flex flex-col gap-6">
+            <input 
+                type="text" 
+                name="query" 
+                placeholder="Enter a theme (e.g., mystery, romance)" 
+                class="p-4 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent placeholder-gray-400"
+            >
+            <button 
+                type="submit" 
+                class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out">
+                🎯 Get Recommendations
+            </button>
+        </form>
+
+        <!-- Response Section -->
+        <div class="mt-8 p-6 bg-gray-50 rounded-xl shadow-md max-h-96 overflow-y-auto">
+            <p class="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
+                {{ response }}
+            </p>
+        </div>
+    </div>
+</div>
 
 
 

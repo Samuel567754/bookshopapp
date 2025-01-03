@@ -49,22 +49,62 @@ from django.utils.translation import gettext_lazy as _
 
 
 
+# def recommend_books(request):
+#     query = request.GET.get('query', '')
+#     if query:
+#         prompt = f"Recommend books based on the theme: {query}."
+#         chatgpt_response = get_chatgpt_response(prompt)
+#     else:
+#         chatgpt_response = "Please provide a very short theme for recommendations."
+    
+#     return render(request, 'user/recommend_books.html', {'response': chatgpt_response})
+
+
+# def customer_support_chat(request):
+#     user_query = request.POST.get('query', '')
+#     chat_response = get_chatgpt_response(user_query) if user_query else ''
+#     return render(request, 'user/customer_support_chat.html', {'response': chat_response})
+
+
+# Book Recommendation View
 def recommend_books(request):
-    query = request.GET.get('query', '')
+    """
+    View to recommend books based on a user's query using ChatGPT.
+    """
+    # Get the query parameter from the GET request
+    query = request.GET.get('query', '').strip()
+    
+    # Check if a query was provided
     if query:
+        # Prepare the prompt for ChatGPT
         prompt = f"Recommend books based on the theme: {query}."
+        # Get the ChatGPT response
         chatgpt_response = get_chatgpt_response(prompt)
     else:
-        chatgpt_response = "Please provide a theme for recommendations."
+        # Provide a fallback message for empty queries
+        chatgpt_response = "Please provide a very short theme for recommendations."
     
+    # Render the response to the template
     return render(request, 'user/recommend_books.html', {'response': chatgpt_response})
 
 
+# Customer Support Chat View
 def customer_support_chat(request):
-    user_query = request.POST.get('query', '')
-    chat_response = get_chatgpt_response(user_query) if user_query else ''
+    """
+    View to handle customer support chat using ChatGPT.
+    """
+    # Get the user's query from the POST request
+    user_query = request.POST.get('query', '').strip()
+    
+    # Initialize the response variable
+    chat_response = ""
+    
+    # Generate a response only if the user provided a query
+    if user_query:
+        chat_response = get_chatgpt_response(user_query)
+    
+    # Render the response to the template
     return render(request, 'user/customer_support_chat.html', {'response': chat_response})
-
 
 
 def generate_receipt_pdf(receipt):

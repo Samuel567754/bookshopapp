@@ -24,11 +24,27 @@ def get_user_books_count(user):
 
 
 
+# def get_chatgpt_response(prompt):
+#     openai.api_key = settings.OPENAI_API_KEY
+#     try:
+#         response = openai.ChatCompletion.create(
+#             model="gpt-3.5-turbo",
+#             messages=[{"role": "user", "content": prompt}],
+#         )
+#         return response['choices'][0]['message']['content']
+#     except Exception as e:
+#         return f"Error: {str(e)}"
+
+
 def get_chatgpt_response(prompt):
+    """
+    Fetches a response from OpenAI's GPT-4 model for a given prompt.
+    """
     openai.api_key = settings.OPENAI_API_KEY
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",  # Use the GPT-4 model
+            store=True,
             messages=[{"role": "user", "content": prompt}],
         )
         return response['choices'][0]['message']['content']
