@@ -53,15 +53,15 @@ def add_to_cart(request, pk):
                 message=f"{book.title} has been added to your cart."
             )
         else:
-            cart_item.quantity += 1
+            cart_item.quantity = 1
             cart_item.save()
-            messages.info(request, f'{book.title} quantity was increased in your cart.')
+            messages.info(request, f'{book.title} is already in your cart.')
 
             # Create a notification for updating cart item quantity
             Notification.objects.create(
                 user=request.user,
                 title="Cart Updated",
-                message=f"The quantity of {book.title} was updated in your cart."
+                message=f" {book.title} was already in your cart."
             )
 
     else:
@@ -71,8 +71,8 @@ def add_to_cart(request, pk):
 
         # Update quantity or add new item in session cart
         if str_pk in session_cart:
-            session_cart[str_pk] += 1
-            messages.info(request, f'{book.title} quantity was increased in your cart.')
+            session_cart[str_pk] = 1
+            messages.info(request, f'{book.title} is already in your cart.')
         else:
             session_cart[str_pk] = 1
             messages.success(request, f'{book.title} has been added to your cart.')
